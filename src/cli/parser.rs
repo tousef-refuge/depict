@@ -4,8 +4,8 @@ use clap::{Parser, Subcommand};
 #[command(author, version, about)]
 pub struct Cli {
     #[command(subcommand)]
-    command: Command,
+    pub command: Command,
 }
 
 #[derive(Subcommand)]
-enum Command {}
+pub enum Command {}
