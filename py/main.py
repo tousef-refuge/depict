@@ -1,4 +1,5 @@
 from .commands import *
+from .util import process_path
 import sys
 
 def main():
@@ -6,4 +7,4 @@ def main():
     name = args[1]
     match name:
         case "trim":
-            trim(args[1:])
+            process_path(trim, args[2])
