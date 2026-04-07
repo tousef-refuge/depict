@@ -1,11 +1,9 @@
-use clap::{Parser, Subcommand};
+use clap::Parser;
+use crate::cli::run;
 
 #[derive(Parser)]
 #[command(author, version, about)]
 pub struct Cli {
     #[command(subcommand)]
-    pub command: Command,
+    pub command: run::Command,
 }
-
-#[derive(Subcommand)]
-pub enum Command {}
