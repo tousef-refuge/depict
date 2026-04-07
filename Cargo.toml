@@ -2,5 +2,8 @@
 name = "depict"
 version = "0.1.0"
 edition = "2024"
+authors = ["tousef_refuge"]
+description = "A command-line tool to quickly and recursively edit image files within a directory"
 
 [dependencies]
+clap = { version = "4.6.0", features = ["derive", "cargo"] }
