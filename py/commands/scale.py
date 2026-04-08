@@ -12,4 +12,4 @@ def scale(subargs):
         int(h * factor)
     ))
     scaled.save(file)
-    image_output(f"Resized (x{factor}): ", file)
+    image_output(f"Scaled (x{factor}): ", file)
