@@ -1,10 +1,10 @@
-use std::process::Command;
-use std::env;
+use std::fs;
 use std::path::Path;
+use std::process::Command;
 
 fn main() {
-    let profile = env::var("PROFILE").unwrap();
-    let out_dir = format!("target/{}/", profile);
+    let out_dir = "target/zip/";
+    fs::create_dir_all(&out_dir).unwrap();
 
     for dir in vec!["py", "venv"] {
         let source_path = Path::new(dir);
