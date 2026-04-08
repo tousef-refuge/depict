@@ -1,10 +1,10 @@
-use std::fs;
+use std::{env, fs};
 use std::path::Path;
 use std::process::Command;
 
 fn main() {
-    let out_dir = "target/zip/";
-    fs::create_dir_all(&out_dir).unwrap();
+    let zip_dir = "target/zip/";
+    fs::create_dir_all(&zip_dir).unwrap();
 
     for dir in vec!["py", "venv"] {
         let source_path = Path::new(dir);
@@ -12,7 +12,7 @@ fn main() {
         if !source_path.exists() {
             panic!("Required directory {} does not exist in project root. Build failed", dir);
         }
-        let zip_path = format!("{}{}.zip", out_dir, dir);
+        let zip_path = format!("{}{}.zip", zip_dir, dir);
 
         if cfg!(windows) {
             Command::new("cmd")
@@ -27,5 +27,16 @@ fn main() {
         }
 
         println!("Zipped {}", dir);
+    }
+
+    let out_dir = env::var("OUT_DIR").unwrap();
+    fs::create_dir_all(&out_dir).unwrap();
+    for entry in fs::read_dir(zip_dir).unwrap() {
+        let entry = entry.unwrap();
+        let path = entry.path();
+        if path.extension().and_then(|s| s.to_str()) == Some("zip") {
+            let filename = path.file_name().unwrap();
+            fs::copy(&path, Path::new(&out_dir).join(filename)).unwrap();
+        }
     }
 }
