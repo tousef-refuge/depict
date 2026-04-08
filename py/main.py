@@ -1,5 +1,5 @@
 from .commands import *
-from .util import process_path
+from .input import *
 import sys
 
 def main():
