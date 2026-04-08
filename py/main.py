@@ -1,10 +1,8 @@
 from .commands import *
 from .input import *
-import sys
 
 def main():
-    args = sys.argv
-    name = args[1]
-    match name:
+    argv = SysArgs()
+    match argv.name:
         case "trim":
-            process_path(trim, args[2])
+            process_path(trim, argv)
