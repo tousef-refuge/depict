@@ -6,6 +6,7 @@ pub fn run_command(command: Command, zipskip: bool) {
     let args: Vec<String> = match command {
         Command::Trim { path } => vec!["trim".to_string(), path],
         Command::Flip { path, axis } => vec!["flip".to_string(), path, axis.to_string()],
+        Command::Scale { path, scale } => vec!["scale".to_string(), path, scale.to_string()],
     };
 
     let mut child = Cmd::new(get_venv(zipskip))
