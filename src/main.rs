@@ -2,10 +2,12 @@ mod cli;
 mod paths;
 
 use clap::Parser;
-use cli::parser::Cli;
+use cli::parser::*;
 use cli::run::run_command;
 
 #[allow(unreachable_code)]
 fn main() {
-    run_command(Cli::parse().command);
+    let cli = Cli::parse();
+    let zipskip = zipskip(&cli);
+    run_command(cli.command, zipskip);
 }

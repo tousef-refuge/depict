@@ -11,16 +11,16 @@ pub enum Command {
     }
 }
 
-pub fn run_command(command: Command) {
+pub fn run_command(command: Command, zipskip: bool) {
     match command {
         Command::Trim { path } => {
-            let mut child = Cmd::new(get_venv())
+            let mut child = Cmd::new(get_venv(zipskip))
                 .arg("-u")
                 .arg("-m")
                 .arg("py")
                 .arg("trim")
                 .arg(path)
-                .current_dir(&get_py())
+                .current_dir(&get_py(zipskip))
                 .stdout(Stdio::inherit())
                 .stderr(Stdio::inherit())
                 .spawn()
