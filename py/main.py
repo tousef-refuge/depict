@@ -11,6 +11,9 @@ def main():
 
         case "flip":
             process_path(flip, argv)
-            
+
         case "scale":
             process_path(scale, argv)
+
+        case "resize":
+            process_path(resize, argv)

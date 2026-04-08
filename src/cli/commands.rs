@@ -13,6 +13,18 @@ pub enum Command {
         axis: char,
     },
 
+    /// Resizes an image to fit the given dimensions
+    Resize {
+        /// Image or directory with images
+        path: String,
+
+        /// Width of the new image
+        width: u32,
+
+        /// Height of the new image
+        height: u32,
+    },
+
     /// Scales a png with respect to the given scale
     Scale {
         /// Image or directory with images
