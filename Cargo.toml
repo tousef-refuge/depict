@@ -1,6 +1,6 @@
 [package]
 name = "depict"
-version = "0.1.0"
+version = "1.0.0"
 edition = "2024"
 authors = ["tousef_refuge"]
 description = "A command-line tool to quickly and recursively edit image files within a directory"
