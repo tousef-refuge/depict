@@ -14,10 +14,10 @@ pub struct Cli {
 
 #[cfg(feature = "debug")]
 pub fn zipskip(cli: &Cli) -> bool {
-    cli.zipskip
+    !cli.zipskip
 }
 
 #[cfg(not(feature = "debug"))]
-pub fn zipskip(cli: &Cli) -> bool {
+pub fn zipskip(_cli: &Cli) -> bool {
     false
 }
