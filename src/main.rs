@@ -1,4 +1,5 @@
 mod cli;
+mod paths;
 
 use clap::Parser;
 use cli::parser::Cli;
