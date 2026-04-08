@@ -1,4 +1,5 @@
 from .args import SubArgs
+from py import print_error
 import os
 
 def process_path(func, sysargs):
@@ -8,7 +9,7 @@ def process_path(func, sysargs):
     elif os.path.isdir(root):
         _dir_walk(func, sysargs)
     else:
-        print("Path does not exist")
+        print_error("Path does not exist")
 
 def _dir_walk(func, sysargs):
     root = sysargs.root

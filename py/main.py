@@ -1,7 +1,9 @@
 from .commands import *
 from .input import *
+import colorama
 
 def main():
+    colorama.init()
     argv = SysArgs()
     match argv.name:
         case "trim":
