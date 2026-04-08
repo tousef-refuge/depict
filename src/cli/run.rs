@@ -1,15 +1,6 @@
-use clap::Subcommand;
 use std::process::{Command as Cmd, Stdio};
+use crate::cli::commands::Command;
 use crate::paths::getpath::*;
-
-#[derive(Subcommand)]
-pub enum Command {
-    /// Removes empty space around a transparent image
-    Trim {
-        /// Image or directory with images
-        path: String,
-    }
-}
 
 pub fn run_command(command: Command, zipskip: bool) {
     match command {
