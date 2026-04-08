@@ -1,6 +1,7 @@
 from PIL import Image
 
-def trim(file):
+def trim(subargs):
+    file = subargs.path
     img = Image.open(file).convert("RGBA")
 
     bbox = img.split()[3].getbbox()
