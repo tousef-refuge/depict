@@ -8,3 +8,6 @@ def main():
     match argv.name:
         case "trim":
             process_path(trim, argv)
+
+        case "flip":
+            process_path(flip, argv)
