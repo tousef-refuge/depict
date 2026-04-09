@@ -4,6 +4,7 @@ use std::process::Command;
 
 fn main() {
     let zip_dir = "target/zip/";
+    let is_release = env::var("PROFILE").unwrap() == "release";
     fs::create_dir_all(&zip_dir).unwrap();
 
     for dir in vec!["py", "venv"] {
@@ -13,6 +14,10 @@ fn main() {
             panic!("Required directory {} does not exist in project root. Build failed", dir);
         }
         let zip_path = format!("{}{}.zip", zip_dir, dir);
+        if !is_release && Path::new(&zip_path).exists() {
+            println!("Skipping {} as it already exists", dir);
+            continue;
+        }
 
         if cfg!(windows) {
             Command::new("cmd")
