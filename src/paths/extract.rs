@@ -1,6 +1,5 @@
 use std::fs;
 use std::fs::File;
-use std::hash::{DefaultHasher, Hash, Hasher};
 use std::io::Write;
 use std::path::PathBuf;
 
@@ -23,11 +22,8 @@ pub fn zip_extract(dir: &str, zip: &[u8]) -> PathBuf {
     file.write_all(zip).unwrap();
 
     //if the zip we need is already extracted then just skip extracting
-    let mut hasher = DefaultHasher::new();
-    zip.hash(&mut hasher);
-
     let hash_file = zip_base.join(format!("{}.hash", dir));
-    let current_hash = hasher.finish().to_string();
+    let current_hash = hash64(zip).to_string();
 
     if !match fs::read_to_string(&hash_file) {
         Ok(hash) => hash != current_hash,
@@ -67,4 +63,13 @@ pub fn zip_extract(dir: &str, zip: &[u8]) -> PathBuf {
 
     fs::write(&hash_file, current_hash).unwrap();
     extract_dir
+}
+
+fn hash64(bytes: &[u8]) -> u64 {
+    let mut hash = 0x5DEB9E29DC099DBCu64;
+    for &b in bytes {
+        hash ^= b as u64;
+        hash = hash.rotate_left(5).wrapping_mul(0x100000001B3);
+    }
+    hash
 }
