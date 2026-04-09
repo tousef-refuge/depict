@@ -1,4 +1,4 @@
-use std::{env, fs};
+use std::fs;
 use std::fs::File;
 use std::io::Write;
 use std::path::PathBuf;
@@ -11,18 +11,21 @@ macro_rules! get_zip {
 }
 
 pub fn zip_extract(dir: &str, zip: &[u8]) -> PathBuf {
-    //such a menacing function name for what lmao
-    //unwrap...OR ELSE.......
-    let profile = env::var("PROFILE").unwrap_or_else(|_| "debug".to_string());
-    let target_dir = env::var("CARGO_TARGET_DIR").unwrap_or_else(|_| "target".to_string());
-    let profile_dir = PathBuf::from(&target_dir).join(&profile);
-
-    let zip_path = profile_dir.join(format!("{}.zip", dir));
-    fs::create_dir_all(&profile_dir).unwrap();
+    let zip_base = dirs::data_local_dir()
+        .expect("Failed to get local data directory")
+        .join("depict")
+        .join("zips");
+    fs::create_dir_all(&zip_base).unwrap();
+    let zip_path = zip_base.join(format!("{}.zip", dir));
     let mut file = File::create(&zip_path).unwrap();
     file.write_all(zip).unwrap();
 
-    let extract_dir = env::temp_dir().join(format!("depict_{}", dir));
+    //i just realized that it nests twice for some reason
+    //I will not bother fixing this.
+    let extract_dir = dirs::data_local_dir()
+        .expect("Failed to get local data directory")
+        .join("depict")
+        .join(dir);
     if extract_dir.exists() {
         fs::remove_dir_all(&extract_dir).unwrap();
     }
