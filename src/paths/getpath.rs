@@ -3,14 +3,6 @@ use std::path::PathBuf;
 use crate::get_zip;
 use crate::paths::extract::zip_extract;
 
-fn get_project_root() -> PathBuf {
-    let exe_dir = env::current_exe()
-        .ok()
-        .and_then(|p| p.parent().map(|p| p.to_path_buf()))
-        .expect("Failed to get binary directory");
-    exe_dir.join("../..")
-}
-
 pub fn get_py() -> PathBuf {
     zip_extract("py", get_zip!("py"))
 }
