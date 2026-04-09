@@ -6,4 +6,4 @@ def image_output(action, path):
 
 def print_error(message):
     print(Fore.RED + message)
-    print(Fore.RESET)
+    print(Fore.RESET, end='')
