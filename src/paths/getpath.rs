@@ -11,20 +11,12 @@ fn get_project_root() -> PathBuf {
     exe_dir.join("../..")
 }
 
-pub fn get_py(zipskip: bool) -> PathBuf {
-    if zipskip {
-        get_project_root()
-    } else {
-        zip_extract("py", get_zip!("py"))
-    }
+pub fn get_py() -> PathBuf {
+    zip_extract("py", get_zip!("py"))
 }
 
-pub fn get_venv(zipskip: bool) -> PathBuf {
-    let mut venv = if zipskip {
-        PathBuf::from(get_project_root())
-    } else {
-        zip_extract("venv", get_zip!("venv"))
-    };
+pub fn get_venv() -> PathBuf {
+    let mut venv = zip_extract("venv", get_zip!("venv"));
     if cfg!(windows) {
         //ai slop mode
         venv = venv.join("venv").join("Scripts").join("python.exe");

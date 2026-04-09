@@ -9,5 +9,5 @@ use cli::run::run_command;
 fn main() {
     let cli = Cli::parse();
     let zipskip = zipskip(&cli);
-    run_command(cli.command, zipskip);
+    run_command(cli.command);
 }
