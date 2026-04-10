@@ -6,14 +6,15 @@ def main():
     colorama.init()
     argv = SysArgs()
     match argv.name:
-        case "trim":
-            process_path(trim, argv)
+        case "trim" | "flip" | "scale" | "resize":
+            command = {
+                "trim" : trim,
+                "flip" : flip,
+                "scale" : scale,
+                "resize" : resize
+            }[argv.name]
+            process_path(command, argv)
 
-        case "flip":
-            process_path(flip, argv)
-
-        case "scale":
-            process_path(scale, argv)
-
-        case "resize":
-            process_path(resize, argv)
+        case _:
+            name_error = f"Invalid function name ({argv.name})"
+            raise NameError(name_error)
