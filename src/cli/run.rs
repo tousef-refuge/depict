@@ -1,11 +1,14 @@
+use colored::Colorize;
 use std::process::{Command as Cmd, Stdio};
+
 use crate::cli::commands::{Category, Command};
 use crate::paths::getpath::*;
+use crate::update::versions::{current_version, latest_version};
 
-pub fn run_command(command: Command) {
+pub async fn run_command(command: Command) {
     match command.category() {
         Category::Image => image_command(command),
-        Category::System => system_command(command),
+        Category::System => system_command(command).await,
     }
 }
 
@@ -29,4 +32,20 @@ fn image_command(command: Command) {
     child.wait().expect("Python process failed");
 }
 
-fn system_command(_command: Command) {}
+async fn system_command(command: Command) {
+    match command {
+        Command::Update => {
+            let current = current_version();
+            let latest = latest_version().await;
+
+            if current >= latest {
+                println!("Currently up to date");
+                return
+            }
+
+            println!("{}", "Current version does not have built-in update installer.".red());
+            println!("Download the newest release from https://github.com/tousef-refuge/depict/releases/tag/v{}", latest);
+        }
+        _ => {}
+    }
+}

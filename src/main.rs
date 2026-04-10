@@ -11,6 +11,6 @@ use update::versions::notify_update;
 #[tokio::main]
 async fn main() {
     let cli = Cli::parse();
-    run_command(cli.command);
+    run_command(cli.command).await;
     notify_update().await;
 }
