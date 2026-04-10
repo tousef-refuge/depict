@@ -10,16 +10,42 @@ idea of it is to make mundane tasks like removing transparent filler off of
 an image, doubling the size of several images etc. super easy and straigtforward
 to do. Just open the terminal and do a ```depict trim C:/Pictures``` and all
 your problems are cured and your college debt is paid off and everything is
-awesome
+awesome. This is really helpful for trimming multiple transparent photos
+perfectly, adjusting game assets, AI data augmentation, mass-flipping all your 
+art to easily find anatomy mistakes etc.
 
-The reason I made this is because I made a prototype of this purely in python
-which works almost the exact same way, just way jankier and needs a bit too
-much typing, but with the power of spamming RustRover autocorrect, 2 hours of
+The reason I made this is because I made a prototype of this for my game purely 
+in python which works almost the exact same way, just way jankier and needs a bit 
+too much typing. I ended up forgetting about the game but I really like the idea
+of the python CLI so with the power of spamming RustRover autocorrect, 2 hours of
 sleep and chatgpt's useless code anything is possible
 
 ## Setup
 
-- Make sure you have cargo, python and pip installed first
+- There's actually two ways you can do this. I recommend the first one but if
+  that doesn't end up working then you have the second more lengthy option
+
+**Method 1: By downloading github releases (only works for Windows and Linux):**
+
+- Go to the releases section on this page to the right
+- Download a .zip with the version you want and the right OS
+- Extract it somewhere, like your desktop
+- Copy the address of the zip you just extracted and put it in environmental path
+  variables (for reference, at least on Windows the path should look something like
+  ```C:\Users\tousef-refuge\depict-v1.1.0-x86_64-windows.zip```). To learn how to
+  actually do this search up a video or something cause apparently it differs 
+  from OS to OS
+- And that's the setup done. Now you can run ```depict``` from anywhere on your
+  terminal. Instructions on how to use it are hopefully clear enough once you
+  run ```depict --help```
+- If this doesn't work somehow or if you don't have the right OS then you can 
+  go to the next method
+
+**Method 2: By manually cloning:**
+
+- Make sure you have cargo, python and pip installed first. Also make sure you
+  have some storage lying around since this method could take up some space
+  (it takes up like 2gb as of v1.1.0)
 - Open the terminal and do ```cd dir``` where dir is any directory of your
   choice. Preferably somewhere kinda hidden though since once you're done with
   the setup you won't see this folder ever again I think lmao
@@ -41,18 +67,14 @@ pip install -r requirements.txt
 cargo install --path . --force
 ```
 
-- And that's the setup done. Now you can run ```depict``` from anywhere on your
-  terminal. Instructions on how to use it are hopefully clear enough once you
-  run ```depict --help```
-- Additionally, if you use Windows you can just download a release directly on this
-  github page. I don't feel like figuring out how to run it though, it's kind of a
-  long story and I only wanna add releases to implement auto-updating later lmao
 - If for SOME REASON you ever feel dissatisfied with depict despite how AWESOME
-  it is and want to get rid of it forever, you can do ```cargo uninstall depict```
-  at any time. This still leaves the actual files up for deletion though.
+  it is and want to get rid of it forever, deleting the project isn't enough.
+  You also need to do ```cargo uninstall depict``` to remove the file for good
 
 ## Changelog
 
 - (1.0.0) Initial release. Has the ability to trim, resize, rescale and flip images.
   All these functions can also recursively process images in a directory and all its
   sub-directories too
+- (1.1.0) Added update check and speed optimizations. Releases now support linux. Sorry
+  macOS guys I couldn't figure it out yet and I also don't trust release.yml
