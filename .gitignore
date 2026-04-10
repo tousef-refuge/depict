@@ -9,5 +9,6 @@ __pycache__/
 env/
 venv/
 
-## Generated ZIP files
-*.zip
+## Github releases
+depict-v*/
+depict-v*.zip
