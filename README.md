@@ -27,14 +27,37 @@ sleep and chatgpt's useless code anything is possible
 
 **Method 1: By downloading github releases (only works for Windows and Linux):**
 
+- Make sure you have python and pip installed first
 - Go to the releases section on this page to the right
 - Download a .zip with the version you want and the right OS
 - Extract it somewhere, like your desktop
 - Copy the address of the zip you just extracted and put it in environmental path
   variables (for reference, at least on Windows the path should look something like
-  ```C:\Users\tousef-refuge\depict-v1.1.0-x86_64-windows.zip```). To learn how to
+  ```C:\Users\tousef-refuge\depict-v1.1.0-x86_64-windows\```). To learn how to
   actually do this search up a video or something cause apparently it differs 
   from OS to OS
+- Open the terminal and do ```cd dir``` where dir is the directory that you extracted
+  to just now
+- After that run the following set of commands:
+
+**Windows:**
+```commandline
+cd dir
+py -m venv venv
+venv/Scripts/activate
+pip install -r requirements.txt
+```
+
+**Linux:**
+```commandline
+cd dir
+py -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+- Keep in mind that the venv folder HAS to be called venv (not .venv) otherwise 
+  the program will not work
 - And that's the setup done. Now you can run ```depict``` from anywhere on your
   terminal. Instructions on how to use it are hopefully clear enough once you
   run ```depict --help```
@@ -49,24 +72,8 @@ sleep and chatgpt's useless code anything is possible
 - Open the terminal and do ```cd dir``` where dir is any directory of your
   choice. Preferably somewhere kinda hidden though since once you're done with
   the setup you won't see this folder ever again I think lmao
-- After that run the following set of commands:
-
-**Windows:**
-```commandline
-py -m venv venv
-venv/Scripts/activate
-pip install -r requirements.txt
-cargo install --path . --force
-```
-
-**MacOS/Linux:**
-```commandline
-py -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-cargo install --path . --force
-```
-
+- Run the set of commands in the previous method exactly as they are (for macOS
+  use the Linux way), but add ```cargo install --path . --force``` at the end
 - If for SOME REASON you ever feel dissatisfied with depict despite how AWESOME
   it is and want to get rid of it forever, deleting the project isn't enough.
   You also need to do ```cargo uninstall depict``` to remove the file for good
