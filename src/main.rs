@@ -10,9 +10,8 @@ use cli::run::run_command;
 use update::versions::notify_update;
 
 #[allow(unreachable_code)]
-#[tokio::main]
-async fn main() {
+fn main() {
     let cli = Cli::parse();
-    run_command(cli.command).await;
-    notify_update().await;
+    run_command(cli.command);
+    notify_update();
 }

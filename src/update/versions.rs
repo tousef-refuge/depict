@@ -14,7 +14,7 @@ pub fn current_version() -> Version {
     Version::parse(CURRENT_VERSION).unwrap()
 }
 
-pub async fn latest_version() -> Version {
+pub fn latest_version() -> Version {
     //dont spam github with requests
     let cache_path = env::temp_dir().join("depict_check_update");
 
@@ -35,18 +35,17 @@ pub async fn latest_version() -> Version {
         }
     }
 
-    let response = match reqwest::Client::new()
+    let response = match reqwest::blocking::Client::new()
         .get(LATEST_RELEASE)
         .header(USER_AGENT, "depict")
         .header(ACCEPT, "application/vnd.github.v3+json")
         .send()
-        .await
     {
         Ok(response) => response,
         Err(_) => return NULL_VERSION,
     };
 
-    let release: Release = match response.json().await {
+    let release: Release = match response.json() {
         Ok(release) => release,
         Err(_) => return NULL_VERSION,
     };
@@ -56,8 +55,8 @@ pub async fn latest_version() -> Version {
     Version::parse(latest_version).unwrap()
 }
 
-pub async fn notify_update() {
-    let latest = latest_version().await;
+pub fn notify_update() {
+    let latest = latest_version();
     let current = current_version();
     if latest > current {
         println!("A new release of depict is available ({} -> {})",

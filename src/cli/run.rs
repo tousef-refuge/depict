@@ -5,10 +5,10 @@ use crate::cli::commands::{Category, Command};
 use crate::paths::*;
 use crate::update::versions::{current_version, latest_version};
 
-pub async fn run_command(command: Command) {
+pub fn run_command(command: Command) {
     match command.category() {
         Category::Image => image_command(command),
-        Category::System => system_command(command).await,
+        Category::System => system_command(command),
     }
 }
 
@@ -44,11 +44,11 @@ fn image_command(command: Command) {
     child.wait().expect("Python process failed");
 }
 
-async fn system_command(command: Command) {
+fn system_command(command: Command) {
     match command {
         Command::Update => {
             let current = current_version();
-            let latest = latest_version().await;
+            let latest = latest_version();
 
             if current >= latest {
                 println!("Currently up to date");
