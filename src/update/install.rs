@@ -8,7 +8,7 @@ use crate::github::latest_release;
 const TEMP_RELEASE: &str = "depictupdate";
 
 pub fn install_update() {
-    let target_zip = if cfg!(windows) {
+    let target_zip = if cfg!(target_os = "windows") {
         "windows.zip"
     } else {
         "linux.zip"

@@ -4,8 +4,8 @@ use std::path::PathBuf;
 pub fn get_venv() -> PathBuf {
     project_root()
         .join("venv")
-        .join(if cfg!(windows) { "Scripts" } else { "bin" })
-        .join(if cfg!(windows) { "python.exe" } else { "python" })
+        .join(if cfg!(target_os = "windows") { "Scripts" } else { "bin" })
+        .join(if cfg!(target_os = "windows") { "python.exe" } else { "python" })
 }
 
 pub fn project_root() -> PathBuf {
