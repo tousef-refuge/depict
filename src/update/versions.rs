@@ -1,5 +1,4 @@
 use colored::Colorize;
-use reqwest::header::{USER_AGENT, ACCEPT};
 use semver::Version;
 
 use crate::github::*;
@@ -8,7 +7,6 @@ use std::time::{SystemTime, UNIX_EPOCH};
 
 const CHECK_INTERVAL: u64 = 43200; //12 hours
 const CURRENT_VERSION: &str = env!("CARGO_PKG_VERSION");
-const NULL_VERSION: Version = Version::new(0, 0, 0);
 
 pub fn current_version() -> Version {
     Version::parse(CURRENT_VERSION).unwrap()
@@ -35,21 +33,8 @@ pub fn latest_version() -> Version {
         }
     }
 
-    let response = match reqwest::blocking::Client::new()
-        .get(LATEST_RELEASE)
-        .header(USER_AGENT, "depict")
-        .header(ACCEPT, "application/vnd.github.v3+json")
-        .send()
-    {
-        Ok(response) => response,
-        Err(_) => return NULL_VERSION,
-    };
-
-    let release: Release = match response.json() {
-        Ok(release) => release,
-        Err(_) => return NULL_VERSION,
-    };
-    let latest_version = release.tag_name.trim_start_matches('v');
+    let latest_release = latest_release();
+    let latest_version = latest_release.tag_name.trim_start_matches('v');
 
     let _ = fs::write(cache_path, format!("{}|{}", latest_version, now));
     Version::parse(latest_version).unwrap()
