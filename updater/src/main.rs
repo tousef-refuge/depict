@@ -14,6 +14,12 @@ fn main() {
         .unwrap()
         .to_path_buf();
     let release_extract = PathBuf::from(&args[2]);
+    let inner_dir = fs::read_dir(&release_extract)
+        .unwrap()
+        .next()
+        .unwrap()
+        .unwrap()
+        .path();
 
     loop {
         let mut sys = System::new_all();
@@ -26,7 +32,7 @@ fn main() {
     }
     thread::sleep(Duration::from_secs(5));
 
-    for entry in fs::read_dir(release_extract).expect("Failed to read update dir") {
+    for entry in fs::read_dir(inner_dir).unwrap() {
         let entry = entry.expect("Bad dir entry");
         let path = entry.path();
 
@@ -42,7 +48,5 @@ fn main() {
             fs::copy(&path, &dst).unwrap();
         }
     }
-
-    let _ = Command::new(install_dir.join("mycli.exe"))
-        .spawn();
+    println!("Depict has been updated");
 }
