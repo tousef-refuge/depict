@@ -1,6 +1,7 @@
+use std::fs;
 use std::process::{Command, exit, id};
 use semver::Version;
-use crate::paths::release_extract;
+use crate::paths::{exe_dir, release_extract};
 
 pub fn run_updater(version: Version) {
     let pid = id();
@@ -11,4 +12,17 @@ pub fn run_updater(version: Version) {
         .spawn()
         .unwrap();
     exit(0);
+}
+
+pub fn updater_cleanup() {
+    for entry in fs::read_dir(exe_dir()).unwrap() {
+        let entry = entry.expect("Bad dir entry");
+        let path = entry.path();
+
+        if let Some(name) = path.file_name().and_then(|n| n.to_str()) {
+            if name.ends_with(".old") {
+                let _ = fs::remove_file(&path);
+            }
+        }
+    }
 }
