@@ -1,5 +1,7 @@
 mod cli;
 mod update;
+
+mod github;
 mod paths;
 
 use clap::Parser;
