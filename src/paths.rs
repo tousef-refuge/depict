@@ -1,6 +1,8 @@
 use std::env;
 use std::path::PathBuf;
 
+pub const TEMP_RELEASE: &str = "depictupdate";
+
 pub fn get_venv() -> PathBuf {
     project_root()
         .join("venv")
@@ -23,8 +25,16 @@ pub fn project_root() -> PathBuf {
 
 pub fn exe_dir() -> PathBuf {
     env::current_exe()
-        .expect("Failed to get exe path")
+        .unwrap()
         .parent()
-        .expect("No parent directory")
+        .unwrap()
         .to_path_buf()
+}
+
+pub fn release_zip() -> PathBuf {
+    env::temp_dir().join(format!("{}.zip", TEMP_RELEASE))
+}
+
+pub fn release_extract() -> PathBuf {
+    env::temp_dir().join(TEMP_RELEASE)
 }

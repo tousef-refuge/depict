@@ -3,6 +3,7 @@ use std::process::{Command as Cmd, Stdio};
 
 use crate::cli::commands::{Category, Command};
 use crate::paths::*;
+use crate::update::install::install_update;
 use crate::update::versions::{current_version, latest_version};
 
 pub fn run_command(command: Command) {
@@ -21,7 +22,7 @@ fn image_command(command: Command) {
         _ => Vec::new(),
     };
 
-    let run_bin = exe_dir().join(if cfg!(windows) { "run.exe" } else { "run" });
+    let run_bin = exe_dir().join(if cfg!(target_os = "windows") { "run.exe" } else { "run" });
     let mut child = if run_bin.exists() {
         Cmd::new(run_bin)
             .args(&args)
@@ -55,8 +56,13 @@ fn system_command(command: Command) {
                 return
             }
 
-            println!("{}", "Current version does not have built-in update installer.".red());
-            println!("Download the newest release from https://github.com/tousef-refuge/depict/releases/tag/v{}", latest);
+            if !cfg!(target_os = "windows") && !cfg!(target_os = "linux") {
+                println!("{}", "This OS does not have a built-in update installer.".red());
+                println!("Clone the newest CLI from https://github.com/tousef-refuge/depict/");
+                return
+            }
+
+            install_update();
         }
         _ => {}
     }

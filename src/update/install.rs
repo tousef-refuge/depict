@@ -1,11 +1,10 @@
-use std::{env, fs};
+use std::fs;
 use std::fs::File;
 use std::io::Write;
 use zip::ZipArchive;
 
 use crate::github::latest_release;
-
-const TEMP_RELEASE: &str = "depictupdate";
+use crate::paths::{release_extract, release_zip};
 
 pub fn install_update() {
     let target_zip = if cfg!(target_os = "windows") {
@@ -23,7 +22,7 @@ pub fn install_update() {
 
     //the downloader
     let response = reqwest::blocking::get(&asset.browser_download_url).unwrap();
-    let zip_path = env::temp_dir().join(format!("{}.zip", TEMP_RELEASE));
+    let zip_path = release_zip();
 
     let mut out = File::create(&zip_path).unwrap();
     out.write_all(&response.bytes().unwrap()).unwrap();
@@ -32,7 +31,7 @@ pub fn install_update() {
     let zip_file = File::open(&zip_path).unwrap();
     let mut archive = ZipArchive::new(zip_file).unwrap();
 
-    let extract_dir = env::temp_dir().join(TEMP_RELEASE);
+    let extract_dir = release_extract();
     if extract_dir.exists() {
         fs::remove_dir_all(&extract_dir).unwrap();
     }
