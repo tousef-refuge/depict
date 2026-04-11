@@ -12,3 +12,8 @@ venv/
 ## Github releases
 depict-v*/
 depict-v*.zip
+
+## PyInstaller
+build/
+dist/
+*.spec
