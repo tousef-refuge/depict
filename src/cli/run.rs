@@ -4,6 +4,7 @@ use std::process::{Command as Cmd, Stdio};
 use crate::cli::commands::{Category, Command};
 use crate::paths::*;
 use crate::update::install::install_update;
+use crate::update::updater::run_updater;
 use crate::update::versions::{current_version, latest_version};
 
 pub fn run_command(command: Command) {
@@ -63,6 +64,7 @@ fn system_command(command: Command) {
             }
 
             install_update();
+            run_updater();
         }
         _ => {}
     }
