@@ -8,7 +8,7 @@ pub fn get_py() -> PathBuf {
 }
 
 pub fn get_venv() -> PathBuf {
-    let mut venv = zip_extract("venv", get_zip!("venv"));
+    let mut venv = project_root();
     if cfg!(windows) {
         //ai slop mode
         venv = venv.join("venv").join("Scripts").join("python.exe");
@@ -17,4 +17,17 @@ pub fn get_venv() -> PathBuf {
         venv = venv.join("venv").join("bin").join("python");
     }
     venv
+}
+
+pub fn project_root() -> PathBuf {
+    let mut dir = env::current_exe().unwrap().parent().unwrap().to_path_buf();
+    loop {
+        if dir.join("Cargo.toml").exists() {
+            return dir;
+        }
+
+        if !dir.pop() {
+            panic!("Project root not found");
+        }
+    }
 }

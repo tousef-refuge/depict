@@ -21,10 +21,12 @@ fn image_command(command: Command) {
         _ => Vec::new(),
     };
 
+    let root = project_root();
+    let run_py = root.join("run.py");
     let mut child = Cmd::new(get_venv())
-        .args(["-u", "-m", "py"])
+        .args(["-u", run_py.to_str().unwrap()])
         .args(&args)
-        .current_dir(&get_py())
+        .current_dir(root)
         .stdout(Stdio::inherit())
         .stderr(Stdio::inherit())
         .spawn()
