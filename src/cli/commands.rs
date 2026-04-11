@@ -4,6 +4,15 @@ use clap::Subcommand;
 //everything else is in chronological order cause i hate sorting
 #[derive(Subcommand)]
 pub enum Command {
+    /// Multiplies an image's opacity by the given float
+    Alpha {
+        /// Image or directory with images
+        path: String,
+        
+        /// Opacity multiplier
+        alpha: f64,
+    },
+    
     /// Flips an image vertical or horizontally
     Flip {
         /// Image or directory with images

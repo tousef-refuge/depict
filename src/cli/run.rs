@@ -20,6 +20,7 @@ fn image_command(command: Command) {
         Command::Flip { path, axis } => vec!["flip".to_string(), path, axis.to_string()],
         Command::Scale { path, scale } => vec!["scale".to_string(), path, scale.to_string()],
         Command::Resize { path , width , height } => vec!["resize".to_string(), path, width.to_string(), height.to_string()],
+        Command::Alpha { path, alpha } => vec!["alpha".to_string(), path, alpha.to_string()],
         _ => Vec::new(),
     };
 
