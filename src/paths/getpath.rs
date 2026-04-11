@@ -31,3 +31,11 @@ pub fn project_root() -> PathBuf {
         }
     }
 }
+
+pub fn exe_dir() -> PathBuf {
+    env::current_exe()
+        .expect("Failed to get exe path")
+        .parent()
+        .expect("No parent directory")
+        .to_path_buf()
+}

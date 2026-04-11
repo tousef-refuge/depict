@@ -21,16 +21,26 @@ fn image_command(command: Command) {
         _ => Vec::new(),
     };
 
-    let root = project_root();
-    let run_py = root.join("run.py");
-    let mut child = Cmd::new(get_venv())
-        .args(["-u", run_py.to_str().unwrap()])
-        .args(&args)
-        .current_dir(root)
-        .stdout(Stdio::inherit())
-        .stderr(Stdio::inherit())
-        .spawn()
-        .expect("Failed to run Python module");
+    let run_bin = exe_dir().join(if cfg!(windows) { "run.exe" } else { "run" });
+    let mut child = if run_bin.exists() {
+        Cmd::new(run_bin)
+            .args(&args)
+            .stdout(Stdio::inherit())
+            .stderr(Stdio::inherit())
+            .spawn()
+            .expect("Failed to run .exe")
+    } else {
+        let root = project_root();
+        let run_py = root.join("run.py");
+        Cmd::new(get_venv())
+            .args(["-u", run_py.to_str().unwrap()])
+            .args(&args)
+            .current_dir(root)
+            .stdout(Stdio::inherit())
+            .stderr(Stdio::inherit())
+            .spawn()
+            .expect("Failed to run Python module")
+    };
     child.wait().expect("Python process failed");
 }
 
