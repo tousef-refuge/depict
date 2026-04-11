@@ -54,10 +54,10 @@ fn system_command(command: Command) {
             let current = current_version();
             let latest = latest_version();
 
-            // if current >= latest {
-            //     println!("Currently up to date");
-            //     return
-            // }
+            if current >= latest {
+                println!("Currently up to date");
+                return
+            }
 
             if !cfg!(target_os = "windows") && !cfg!(target_os = "linux") {
                 println!("{}", "This OS does not have a built-in update installer.".red());
