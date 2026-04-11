@@ -36,6 +36,11 @@ sleep and chatgpt's useless code anything is possible
   ```C:\Users\tousef-refuge\depict-v1.1.0-x86_64-windows\```). To learn how to
   actually do this search up a video or something cause apparently it differs 
   from OS to OS
+- If you downloaded a release starting from 1.2.0 onwards, congrats the setup is over
+  and you can run ```depict``` from anywhere on the terminal! Make sure you DO NOT
+  delete the release.marker file in the directory otherwise ```depict update``` won't
+  work anymore. If you downloaded an older release though you might still want to
+  continue from here
 - Open the terminal and do ```cd dir``` where dir is the directory that you extracted
   to just now
 - After that run the following set of commands:
@@ -74,6 +79,8 @@ pip install -r requirements.txt
   the setup you won't see this folder ever again I think lmao
 - Run the set of commands in the previous method exactly as they are (for macOS
   use the Linux way), but add ```cargo install --path . --force``` at the end
+- You can get rid of the updater/ directory. It doesn't do anything if you
+  git cloned the project anyway lmao
 - If for SOME REASON you ever feel dissatisfied with depict despite how AWESOME
   it is and want to get rid of it forever, deleting the project isn't enough.
   You also need to do ```cargo uninstall depict``` to remove the file for good
@@ -85,3 +92,6 @@ pip install -r requirements.txt
   sub-directories too
 - (1.1.0) Added update check and speed optimizations. Releases now support linux. Sorry
   macOS guys I couldn't figure it out yet and I also don't trust release.yml
+- (1.2.0) Added two new commands: depict update to automatically upgrade the CLI whenever
+  necessary (only works if you have it downloaded as a github release) and depict alpha
+  to adjust the opacity of an image
