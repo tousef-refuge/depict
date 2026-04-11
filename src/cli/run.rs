@@ -2,7 +2,7 @@ use colored::Colorize;
 use std::process::{Command as Cmd, Stdio};
 
 use crate::cli::commands::{Category, Command};
-use crate::paths::getpath::*;
+use crate::paths::*;
 use crate::update::versions::{current_version, latest_version};
 
 pub async fn run_command(command: Command) {
