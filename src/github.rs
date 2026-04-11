@@ -1,5 +1,6 @@
 use reqwest::header::{ACCEPT, USER_AGENT};
 use serde::Deserialize;
+use std::env;
 
 pub const LATEST_RELEASE: &str = "https://api.github.com/repos/tousef-refuge/depict/releases/latest";
 
@@ -24,4 +25,16 @@ pub fn latest_release() -> Release {
         .unwrap()
         .json()
         .unwrap()
+}
+
+pub fn is_release() -> bool {
+    let exe_dir = match env::current_exe()
+        .ok()
+        .and_then(|p| p.parent().map(|p| p.to_path_buf()))
+    {
+        Some(dir) => dir,
+        None => return false,
+    };
+
+    exe_dir.join("release.marker").exists()
 }

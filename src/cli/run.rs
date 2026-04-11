@@ -2,6 +2,7 @@ use colored::Colorize;
 use std::process::{Command as Cmd, Stdio};
 
 use crate::cli::commands::{Category, Command};
+use crate::github::is_release;
 use crate::paths::*;
 use crate::update::install::install_update;
 use crate::update::updater::run_updater;
@@ -53,14 +54,19 @@ fn system_command(command: Command) {
             let current = current_version();
             let latest = latest_version();
 
-            if current >= latest {
-                println!("Currently up to date");
-                return
-            }
+            // if current >= latest {
+            //     println!("Currently up to date");
+            //     return
+            // }
 
             if !cfg!(target_os = "windows") && !cfg!(target_os = "linux") {
                 println!("{}", "This OS does not have a built-in update installer.".red());
                 println!("Clone the newest CLI from https://github.com/tousef-refuge/depict/");
+                return
+            }
+
+            if !is_release() {
+                println!("{}", "You cannot run this command. This is not a github release.".red());
                 return
             }
 
