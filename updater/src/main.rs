@@ -1,6 +1,5 @@
 use std::{env, fs, thread};
 use std::path::PathBuf;
-use std::process::Command;
 use std::time::Duration;
 use sysinfo::System;
 
@@ -20,6 +19,7 @@ fn main() {
         .unwrap()
         .unwrap()
         .path();
+    let latest = &args[3];
 
     loop {
         let mut sys = System::new_all();
@@ -48,5 +48,6 @@ fn main() {
             fs::copy(&path, &dst).unwrap();
         }
     }
-    println!("Depict has been updated");
+    //im not adding another crate just for green text lmao
+    println!("Depict has been updated to \x1b[32m{}\x1b[0m", latest);
 }

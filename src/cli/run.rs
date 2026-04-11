@@ -63,8 +63,11 @@ fn system_command(command: Command) {
                 return
             }
 
+            println!("{}", "DO NOT close this terminal until it notifies you that depict has updated.".red());
+            println!("Installing...");
             install_update();
-            run_updater();
+            println!("Running updater...");
+            run_updater(latest);
         }
         _ => {}
     }
