@@ -37,10 +37,15 @@ sleep and chatgpt's useless code anything is possible
   actually do this search up a video or something cause apparently it differs 
   from OS to OS
 - If you downloaded a release starting from 1.2.0 onwards, congrats the setup is over
-  and you can run ```depict``` from anywhere on the terminal! Make sure you DO NOT
-  delete the release.marker file in the directory otherwise ```depict update``` won't
-  work anymore. If you downloaded an older release though you might still want to
-  continue from here
+  and you can run ```depict``` from anywhere on the terminal! If you downloaded an 
+  older release though you might still want to continue from here. Make sure you
+  **DO NOT** delete the release.marker file in the directory otherwise ```depict update``` won't
+  work anymore. If ```depict update``` ever goes wrong the files from the update you
+  migrated off of will still be there with a .old extension at the end. These only get
+  deleted on the next successful run of the new update (which obviously isn't happening
+  if the update went badly in the first place lmao). Removing the .old extension and
+  running them as usual will still work. Keep in mind from v1.2.0 onwards the program 
+  deletes **ALL** .old files inside this directory with every successful command run
 - Open the terminal and do ```cd dir``` where dir is the directory that you extracted
   to just now
 - After that run the following set of commands:
