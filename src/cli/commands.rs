@@ -52,17 +52,3 @@ pub enum Command {
     /// Updates the CLI
     Update,
 }
-
-impl Command {
-    pub fn category(&self) -> Category {
-        match self {
-            Command::Update => Category::System,
-            _ => Category::Image,
-        }
-    }
-}
-
-pub enum Category {
-    Image,
-    System
-}
