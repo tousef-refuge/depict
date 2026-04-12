@@ -13,24 +13,21 @@ pub fn image_command(command: Command) {
     };
 
     let run_bin = exe_dir().join(if cfg!(target_os = "windows") { "run.exe" } else { "run" });
-    let mut child = if run_bin.exists() {
+    let mut cmd = if run_bin.exists() {
         Cmd::new(run_bin)
-            .args(&args)
-            .stdout(Stdio::inherit())
-            .stderr(Stdio::inherit())
-            .spawn()
-            .expect("Failed to run .exe")
     } else {
         let root = project_root();
         let run_py = root.join("run.py");
-        Cmd::new(get_venv())
-            .args(["-u", run_py.to_str().unwrap()])
-            .args(&args)
-            .current_dir(root)
-            .stdout(Stdio::inherit())
-            .stderr(Stdio::inherit())
-            .spawn()
-            .expect("Failed to run Python module")
+        let mut cmd_root = Cmd::new(get_venv());
+        cmd_root.args(["-u", run_py.to_str().unwrap()]).current_dir(root);
+        cmd_root
     };
+    cmd.args(&args);
+
+    let mut child = cmd
+        .stdout(Stdio::inherit())
+        .stderr(Stdio::inherit())
+        .spawn()
+        .unwrap();
     child.wait().expect("Python process failed");
 }
