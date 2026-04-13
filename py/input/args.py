@@ -9,6 +9,7 @@ class _ArgBase:
 class SysArgs(_ArgBase):
     def __init__(self):
         self._data = json.loads(sys.argv[1])
+        self.filters = json.loads(sys.argv[2])
 
 class SubArgs(_ArgBase):
     def __init__(self, sysargs, path):
