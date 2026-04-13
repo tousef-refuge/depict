@@ -1,8 +1,10 @@
 use clap::Subcommand;
+use serde::Serialize;
 
 //must remain in alphabetical order for -h to look nice
 //everything else is in chronological order cause i hate sorting
-#[derive(Subcommand)]
+#[derive(Subcommand, Serialize)]
+#[serde(tag = "name", rename_all = "lowercase")]
 pub enum Command {
     /// Multiplies an image's opacity by the given float
     Alpha {

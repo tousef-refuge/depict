@@ -1,42 +1,9 @@
-use serde_json::json;
 use std::process::{Command as Cmd, Stdio};
 use crate::cli::commands::Command;
 use crate::paths::{exe_dir, get_venv, project_root};
 
 pub fn image_command(command: Command) {
-    let args = match command {
-        Command::Trim { path } => json!({
-            "name": "trim",
-            "path": path,
-        }),
-
-        Command::Flip { path, axis } => json!({
-            "name": "flip",
-            "path": path,
-            "axis": axis,
-        }),
-
-        Command::Scale { path, scale } => json!({
-            "name": "scale",
-            "path": path,
-            "scale": scale,
-        }),
-
-        Command::Resize { path, width, height } => json!({
-            "name": "resize",
-            "path": path,
-            "width": width,
-            "height": height,
-        }),
-
-        Command::Alpha { path, alpha } => json!({
-            "name": "alpha",
-            "path": path,
-            "alpha": alpha,
-        }),
-
-        _ => unreachable!(),
-    };
+    let args = serde_json::to_string(&command).unwrap();
 
     let run_bin = exe_dir().join(if cfg!(target_os = "windows") { "run.exe" } else { "run" });
     let mut cmd = if run_bin.exists() {
