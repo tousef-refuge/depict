@@ -100,3 +100,8 @@ pip install -r requirements.txt
 - (1.2.0) Added two new commands: depict update to automatically upgrade the CLI whenever
   necessary (only works if you have it downloaded as a github release) and depict alpha
   to adjust the opacity of an image
+- (1.3.0) Added two new flags for every image command: --ignore to skip processing specified
+  files and --only to process only specified files. These flags also follow globbing patterns
+  (for example ```depict trim C:/ --only **/test_*.png``` will only target files that have
+  the format test_\<name\>.png). Added two new image commands: depict invert and depict
+  grayscale. Take a wild guess at what these do
