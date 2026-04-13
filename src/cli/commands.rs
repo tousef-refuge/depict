@@ -1,4 +1,4 @@
-use clap::Subcommand;
+use clap::{Args, Subcommand};
 use serde::Serialize;
 
 //must remain in alphabetical order for -h to look nice
@@ -13,6 +13,10 @@ pub enum Command {
         
         /// Opacity multiplier
         alpha: f64,
+
+        #[command(flatten)]
+        #[serde(skip)]
+        file_filter: FileFilter,
     },
     
     /// Flips an image vertical or horizontally
@@ -22,6 +26,10 @@ pub enum Command {
 
         /// x for horizontal, y for vertical
         axis: char,
+
+        #[command(flatten)]
+        #[serde(skip)]
+        file_filter: FileFilter,
     },
 
     /// Resizes an image to fit the given dimensions
@@ -34,6 +42,10 @@ pub enum Command {
 
         /// Height of the new image
         height: u32,
+
+        #[command(flatten)]
+        #[serde(skip)]
+        file_filter: FileFilter,
     },
 
     /// Scales a png with respect to the given scale
@@ -43,14 +55,29 @@ pub enum Command {
 
         /// Scale of the new image
         scale: f64,
+
+        #[command(flatten)]
+        #[serde(skip)]
+        file_filter: FileFilter,
     },
 
     /// Removes empty space around a transparent image
     Trim {
         /// Image or directory with images
         path: String,
+
+        #[command(flatten)]
+        #[serde(skip)]
+        file_filter: FileFilter,
     },
 
     /// Updates the CLI
     Update,
+}
+
+#[derive(Args, Clone)]
+pub struct FileFilter {
+    /// Ignore specific files
+    #[arg(short, long, num_args = 1..)]
+    pub ignore: Option<Vec<String>>,
 }
