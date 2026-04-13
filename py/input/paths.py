@@ -3,7 +3,7 @@ from py import print_error
 import os
 
 def process_path(func, sysargs):
-    root = sysargs.root
+    root = sysargs["path"]
     if os.path.isfile(root):
         func(SubArgs(sysargs, root))
     elif os.path.isdir(root):
@@ -12,7 +12,7 @@ def process_path(func, sysargs):
         print_error("Path does not exist")
 
 def _dir_walk(func, sysargs):
-    root = sysargs.root
+    root = sysargs["path"]
     for current_path, dirs, files in os.walk(root):
         for file in files:
             if file.lower().endswith(".png"):
