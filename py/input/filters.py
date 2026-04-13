@@ -20,6 +20,10 @@ def skip_file(path):
     global filter_list
 
     if filter_type is not None:
-        return filter_list.match_file(path)
+        if filter_type == "ignore":
+            return filter_list.match_file(path)
+
+        if filter_type == "only":
+            return not filter_list.match_file(path)
 
     return False

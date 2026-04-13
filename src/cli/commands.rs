@@ -78,8 +78,12 @@ pub enum Command {
 #[derive(Args, Clone)]
 pub struct FileFilter {
     /// Ignore specific files
-    #[arg(short, long, num_args = 1..)]
+    #[arg(short, long, num_args = 1.., conflicts_with = "only")]
     pub ignore: Option<Vec<String>>,
+
+    /// Only process specific files
+    #[arg(short, long, num_args = 1.., conflicts_with = "ignore")]
+    pub only: Option<Vec<String>>,
 }
 
 impl Command {

@@ -37,5 +37,13 @@ fn filter_args(file_filter: &FileFilter) -> Value {
             json!(ignore_list),
         );
     }
+
+    if let Some(only_list) = &file_filter.only {
+        data.insert(
+            "only".to_string(),
+            json!(only_list)
+        );
+    }
+
     Value::Object(data)
 }
