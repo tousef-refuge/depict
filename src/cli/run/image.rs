@@ -1,14 +1,40 @@
+use serde_json::json;
 use std::process::{Command as Cmd, Stdio};
 use crate::cli::commands::Command;
 use crate::paths::{exe_dir, get_venv, project_root};
 
 pub fn image_command(command: Command) {
-    let args: Vec<String> = match command {
-        Command::Trim { path } => vec!["trim".to_string(), path],
-        Command::Flip { path, axis } => vec!["flip".to_string(), path, axis.to_string()],
-        Command::Scale { path, scale } => vec!["scale".to_string(), path, scale.to_string()],
-        Command::Resize { path , width , height } => vec!["resize".to_string(), path, width.to_string(), height.to_string()],
-        Command::Alpha { path, alpha } => vec!["alpha".to_string(), path, alpha.to_string()],
+    let args = match command {
+        Command::Trim { path } => json!({
+            "name": "trim",
+            "path": path,
+        }),
+
+        Command::Flip { path, axis } => json!({
+            "name": "flip",
+            "path": path,
+            "axis": axis,
+        }),
+
+        Command::Scale { path, scale } => json!({
+            "name": "scale",
+            "path": path,
+            "scale": scale,
+        }),
+
+        Command::Resize { path, width, height } => json!({
+            "name": "resize",
+            "path": path,
+            "width": width,
+            "height": height,
+        }),
+
+        Command::Alpha { path, alpha } => json!({
+            "name": "alpha",
+            "path": path,
+            "alpha": alpha,
+        }),
+
         _ => unreachable!(),
     };
 
@@ -22,7 +48,7 @@ pub fn image_command(command: Command) {
         cmd_root.args(["-u", run_py.to_str().unwrap()]).current_dir(root);
         cmd_root
     };
-    cmd.args(&args);
+    cmd.arg(args.to_string());
 
     let mut child = cmd
         .stdout(Stdio::inherit())
