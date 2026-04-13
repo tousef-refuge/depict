@@ -2,8 +2,8 @@ from PIL import Image, ImageOps
 from py import image_output, print_error
 
 def flip(subargs):
-    file = subargs.path
-    axis = subargs[1]
+    file = subargs["path"]
+    axis = subargs["axis"]
     if axis not in ('x', 'y'):
         print_error("Invalid axis. Must be x or y")
 

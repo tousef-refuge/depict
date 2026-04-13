@@ -2,8 +2,8 @@ from PIL import Image
 from py import image_output
 
 def scale(subargs):
-    file = subargs.path
-    factor = float(subargs[1])
+    file = subargs["path"]
+    factor = float(subargs["scale"])
     img = Image.open(file).convert("RGBA")
 
     w, h = img.size
