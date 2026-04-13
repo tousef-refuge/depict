@@ -17,5 +17,5 @@ def main():
             process_path(command, argv)
 
         case _:
-            name_error = f"Invalid function name ({argv.name})"
+            name_error = f"Invalid function name ({argv["name"]})"
             raise NameError(name_error)
