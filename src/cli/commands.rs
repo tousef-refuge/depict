@@ -81,3 +81,16 @@ pub struct FileFilter {
     #[arg(short, long, num_args = 1..)]
     pub ignore: Option<Vec<String>>,
 }
+
+impl Command {
+    pub fn file_filter(&self) -> &FileFilter {
+        match self {
+            Command::Alpha { file_filter, .. } => file_filter,
+            Command::Flip { file_filter, .. } => file_filter,
+            Command::Resize { file_filter, .. } => file_filter,
+            Command::Scale { file_filter, .. } => file_filter,
+            Command::Trim { file_filter, .. } => file_filter,
+            _ => panic!("This command has no file filter"),
+        }
+    }
+}
