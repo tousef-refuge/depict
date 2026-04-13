@@ -32,6 +32,26 @@ pub enum Command {
         file_filter: FileFilter,
     },
 
+    /// Converts an image to grayscale
+    Grayscale {
+        /// Image or directory with images
+        path: String,
+
+        #[command(flatten)]
+        #[serde(skip)]
+        file_filter: FileFilter,
+    },
+
+    /// Invert the colors of an image
+    Invert {
+        /// Image or directory with images
+        path: String,
+
+        #[command(flatten)]
+        #[serde(skip)]
+        file_filter: FileFilter,
+    },
+
     /// Resizes an image to fit the given dimensions
     Resize {
         /// Image or directory with images
@@ -91,6 +111,8 @@ impl Command {
         match self {
             Command::Alpha { file_filter, .. } => file_filter,
             Command::Flip { file_filter, .. } => file_filter,
+            Command::Grayscale { file_filter, .. } => file_filter,
+            Command::Invert { file_filter, .. } => file_filter,
             Command::Resize { file_filter, .. } => file_filter,
             Command::Scale { file_filter, .. } => file_filter,
             Command::Trim { file_filter, .. } => file_filter,

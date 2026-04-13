@@ -6,13 +6,15 @@ def main():
     colorama.init()
     argv = SysArgs()
     match argv["name"]:
-        case "trim" | "flip" | "scale" | "resize" | "alpha":
+        case "trim" | "flip" | "scale" | "resize" | "alpha" | "invert" | "grayscale":
             command = {
                 "trim" : trim,
                 "flip" : flip,
                 "scale" : scale,
                 "resize" : resize,
-                "alpha" : alpha
+                "alpha" : alpha,
+                "invert" : invert,
+                "grayscale" : grayscale
             }[argv["name"]]
             process_path(command, argv)
 
