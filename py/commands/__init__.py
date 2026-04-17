@@ -5,5 +5,6 @@ from .resize import resize
 from .alpha import alpha
 from .invert import invert
 from .grayscale import grayscale
+from .backup import backup
 
-__all__ = ["trim", "flip", "scale", "resize", "alpha", "invert", "grayscale"]
+__all__ = ["trim", "flip", "scale", "resize", "alpha", "invert", "grayscale", "backup"]

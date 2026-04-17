@@ -6,7 +6,7 @@ def main():
     colorama.init()
     argv = SysArgs()
     match argv["name"]:
-        case "trim" | "flip" | "scale" | "resize" | "alpha" | "invert" | "grayscale":
+        case "trim" | "flip" | "scale" | "resize" | "alpha" | "invert" | "grayscale" | "backup":
             command = {
                 "trim" : trim,
                 "flip" : flip,
@@ -14,8 +14,12 @@ def main():
                 "resize" : resize,
                 "alpha" : alpha,
                 "invert" : invert,
-                "grayscale" : grayscale
+                "grayscale" : grayscale,
+                "backup" : backup
             }[argv["name"]]
+
+            if argv["name"] == "backup":
+                argv.file_args["backup"] = True
             process_path(command, argv)
 
         case _:

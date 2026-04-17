@@ -19,6 +19,16 @@ pub enum Command {
         file_args: FileArgs,
     },
 
+    /// Creates a backup of an image
+    Backup {
+        /// Image or directory with images
+        path: String,
+
+        #[command(flatten)]
+        #[serde(skip)]
+        file_args: FileArgs,
+    },
+
     /// Deletes a backup
     Cleanup {
         /// Backup or directory with backups
@@ -132,6 +142,7 @@ impl Command {
             Command::Resize { file_args, .. } => file_args,
             Command::Scale { file_args, .. } => file_args,
             Command::Trim { file_args, .. } => file_args,
+            Command::Backup { file_args, .. } => file_args,
             _ => panic!("This command has no file filter"),
         }
     }
