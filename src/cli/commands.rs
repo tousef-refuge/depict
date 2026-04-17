@@ -68,6 +68,12 @@ pub enum Command {
         file_args: FileArgs,
     },
 
+    /// Restores a backup image back to its original form
+    Restore {
+        /// Backup or directory with backups
+        path: String,
+    },
+
     /// Scales a png with respect to the given scale
     Scale {
         /// Image or directory with images
