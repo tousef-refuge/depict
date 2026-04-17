@@ -33,6 +33,11 @@ pub fn system_command(command: Command) {
             println!("Running updater...");
             run_updater(latest);
         }
+
+        Command::Config => {
+            println!("{}", "This command doesn't do anything...yet".red());
+        }
+
         _ => unreachable!(),
     }
 }

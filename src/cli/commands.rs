@@ -29,6 +29,9 @@ pub enum Command {
         file_args: FileArgs,
     },
 
+    /// Configure the CLI
+    Config,
+
     /// Deletes a backup
     Cleanup {
         /// Backup or directory with backups
