@@ -8,13 +8,13 @@ use crate::cli::Command;
 pub fn backup_command(command: Command) {
     match command {
         Command::Restore { path: name } => {
-            let path = Path::new(&name);
-            if !path.exists() {
-                println!("{}", "Path does not exist".red());
-                return;
-            }
-            dir_walk(restore, path);
+            dir_walk(restore, Path::new(&name));
         },
+
+        Command::Cleanup { path: name } => {
+            dir_walk(cleanup, Path::new(&name));
+        },
+
         _ => unreachable!(),
     }
 }
@@ -24,6 +24,11 @@ fn dir_walk<F>(func: F, path: &Path)
 where
     F: Fn(&Path),
 {
+    if !path.exists() {
+        println!("{}", "Path does not exist".red());
+        return;
+    }
+
     for entry in WalkDir::new(&path)
         .into_iter()
         .filter_map(|e| e.ok())
@@ -33,6 +38,15 @@ where
             func(path);
         }
     }
+}
+
+fn cleanup(path: &Path) {
+    if path.extension().and_then(|e| e.to_str()) != Some("old") {
+        return
+    }
+
+    fs::remove_file(path).ok();
+    println!("{}{}", "Deleted: ".blue(), path.display());
 }
 
 fn restore(path: &Path) {

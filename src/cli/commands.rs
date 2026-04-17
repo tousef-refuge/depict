@@ -18,6 +18,12 @@ pub enum Command {
         #[serde(skip)]
         file_args: FileArgs,
     },
+
+    /// Deletes a backup
+    Cleanup {
+        /// Backup or directory with backups
+        path: String,
+    },
     
     /// Flips an image vertical or horizontally
     Flip {
