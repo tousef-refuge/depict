@@ -335,6 +335,7 @@ dependencies = [
  "semver",
  "serde",
  "serde_json",
+ "walkdir",
  "zip",
 ]
 
