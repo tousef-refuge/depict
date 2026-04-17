@@ -3,6 +3,7 @@ from pathspec import PathSpec
 
 filter_type = None
 filter_list = None
+VALID_FILE_EXTS = (".png", ".jpeg", ".jpg")
 
 def filter_init(sysargs):
     global filter_type

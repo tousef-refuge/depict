@@ -1,5 +1,5 @@
-from .args import SubArgs
-from .filters import filter_init, skip_file
+from .filters import filter_init, skip_file, VALID_FILE_EXTS
+from PIL import Image
 from py import print_error
 import os
 
@@ -21,5 +21,11 @@ def _dir_walk(func, sysargs):
             _run_func(func, sysargs, full_path)
 
 def _run_func(func, sysargs, path):
-    if path.lower().endswith(".png") and not skip_file(path):
-        func(SubArgs(sysargs, path))
+    if skip_file(path) or not path.lower().endswith(VALID_FILE_EXTS):
+        return
+
+    img = Image.open(path).convert("RGBA")
+    result = func(sysargs, img)
+    if not path.lower().endswith(".png"):
+        result = result.convert("RGB")
+    result.save(path)
