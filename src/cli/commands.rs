@@ -16,7 +16,7 @@ pub enum Command {
 
         #[command(flatten)]
         #[serde(skip)]
-        file_filter: FileFilter,
+        file_args: FileArgs,
     },
     
     /// Flips an image vertical or horizontally
@@ -29,7 +29,7 @@ pub enum Command {
 
         #[command(flatten)]
         #[serde(skip)]
-        file_filter: FileFilter,
+        file_args: FileArgs,
     },
 
     /// Converts an image to grayscale
@@ -39,7 +39,7 @@ pub enum Command {
 
         #[command(flatten)]
         #[serde(skip)]
-        file_filter: FileFilter,
+        file_args: FileArgs,
     },
 
     /// Invert the colors of an image
@@ -49,7 +49,7 @@ pub enum Command {
 
         #[command(flatten)]
         #[serde(skip)]
-        file_filter: FileFilter,
+        file_args: FileArgs,
     },
 
     /// Resizes an image to fit the given dimensions
@@ -65,7 +65,7 @@ pub enum Command {
 
         #[command(flatten)]
         #[serde(skip)]
-        file_filter: FileFilter,
+        file_args: FileArgs,
     },
 
     /// Scales a png with respect to the given scale
@@ -78,7 +78,7 @@ pub enum Command {
 
         #[command(flatten)]
         #[serde(skip)]
-        file_filter: FileFilter,
+        file_args: FileArgs,
     },
 
     /// Removes empty space around a transparent image
@@ -88,7 +88,7 @@ pub enum Command {
 
         #[command(flatten)]
         #[serde(skip)]
-        file_filter: FileFilter,
+        file_args: FileArgs,
     },
 
     /// Updates the CLI
@@ -96,7 +96,7 @@ pub enum Command {
 }
 
 #[derive(Args, Clone)]
-pub struct FileFilter {
+pub struct FileArgs {
     /// Generate a backup of every image processed
     #[arg(short, long)]
     pub backup: bool,
@@ -111,15 +111,15 @@ pub struct FileFilter {
 }
 
 impl Command {
-    pub fn file_filter(&self) -> &FileFilter {
+    pub fn file_args(&self) -> &FileArgs {
         match self {
-            Command::Alpha { file_filter, .. } => file_filter,
-            Command::Flip { file_filter, .. } => file_filter,
-            Command::Grayscale { file_filter, .. } => file_filter,
-            Command::Invert { file_filter, .. } => file_filter,
-            Command::Resize { file_filter, .. } => file_filter,
-            Command::Scale { file_filter, .. } => file_filter,
-            Command::Trim { file_filter, .. } => file_filter,
+            Command::Alpha { file_args, .. } => file_args,
+            Command::Flip { file_args, .. } => file_args,
+            Command::Grayscale { file_args, .. } => file_args,
+            Command::Invert { file_args, .. } => file_args,
+            Command::Resize { file_args, .. } => file_args,
+            Command::Scale { file_args, .. } => file_args,
+            Command::Trim { file_args, .. } => file_args,
             _ => panic!("This command has no file filter"),
         }
     }

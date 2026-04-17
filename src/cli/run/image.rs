@@ -1,11 +1,11 @@
 use serde_json::{json, Value};
 use std::process::{Command as Cmd, Stdio};
-use crate::cli::commands::{Command, FileFilter};
+use crate::cli::commands::{Command, FileArgs};
 use crate::paths::{exe_dir, get_venv, project_root};
 
 pub fn image_command(command: Command) {
     let args = serde_json::to_string(&command).unwrap();
-    let file_filter = &command.file_filter();
+    let file_filter = &command.file_args();
 
     let run_bin = exe_dir().join(if cfg!(target_os = "windows") { "run.exe" } else { "run" });
     let mut cmd = if run_bin.exists() {
@@ -28,18 +28,18 @@ pub fn image_command(command: Command) {
     child.wait().expect("Python process failed");
 }
 
-fn filter_args(file_filter: &FileFilter) -> Value {
+fn filter_args(file_args: &FileArgs) -> Value {
     let mut data = serde_json::Map::new();
-    data.insert("backup".to_string(), json!(file_filter.backup));
+    data.insert("backup".to_string(), json!(file_args.backup));
 
-    if let Some(ignore_list) = &file_filter.ignore {
+    if let Some(ignore_list) = &file_args.ignore {
         data.insert(
             "ignore".to_string(),
             json!(ignore_list),
         );
     }
 
-    if let Some(only_list) = &file_filter.only {
+    if let Some(only_list) = &file_args.only {
         data.insert(
             "only".to_string(),
             json!(only_list)

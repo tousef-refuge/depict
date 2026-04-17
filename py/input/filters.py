@@ -10,12 +10,12 @@ def filter_init(sysargs):
     global filter_type
     global filter_list
 
-    filters = sysargs.filters
-    for _type in filters:
+    file_args = sysargs.file_args
+    for _type in file_args:
         if _type not in VALID_FILTER_TYPES:
             continue
         filter_type = _type
-        filter_list = PathSpec.from_lines("gitwildmatch", filters[_type])
+        filter_list = PathSpec.from_lines("gitwildmatch", file_args[_type])
         break
 
 # noinspection PyUnresolvedReferences
