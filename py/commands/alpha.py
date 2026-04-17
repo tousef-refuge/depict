@@ -1,14 +1,13 @@
-from PIL import Image, ImageEnhance
+from PIL import ImageEnhance
 from py import image_output
 
-def alpha(subargs):
-    file = subargs["path"]
+def alpha(subargs, img, path):
+    img = img.copy()
     newalpha = float(subargs["alpha"])
-    img = Image.open(file).convert("RGBA")
 
     _alpha = img.getchannel('A')
     _alpha = ImageEnhance.Brightness(_alpha).enhance(newalpha)
 
     img.putalpha(_alpha)
-    img.save(file)
-    image_output(f"Adjusted opacity (x{newalpha}): ", file)
+    image_output(f"Adjusted opacity (x{newalpha}): ", path)
+    return img
