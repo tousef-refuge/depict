@@ -8,3 +8,6 @@ class SysArgs:
 
     def __getitem__(self, idx):
         return self._data[idx]
+
+    def get_arg(self, name):
+        return self.file_args[name]

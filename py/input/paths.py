@@ -20,9 +20,17 @@ def _dir_walk(func, sysargs):
             full_path = os.path.join(current_path, file)
             _run_func(func, sysargs, full_path)
 
+# noinspection PyUnresolvedReferences
 def _run_func(func, sysargs, path):
     if skip_file(path) or not path.lower().endswith(VALID_FILE_EXTS):
         return
+
+    if sysargs.get_arg("backup"):
+        from pathlib import Path
+        import shutil
+        p = Path(path)
+        backup = p.with_name(p.name + ".old")
+        shutil.copy(p, backup)
 
     img = Image.open(path).convert("RGBA")
     result = func(sysargs, img, path)
