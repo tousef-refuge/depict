@@ -97,12 +97,16 @@ pub enum Command {
 
 #[derive(Args, Clone)]
 pub struct FileFilter {
+    /// Generate a backup of every image processed
+    #[arg(short, long)]
+    pub backup: bool,
+
     /// Ignore specific files
-    #[arg(short, long, num_args = 1.., conflicts_with = "only")]
+    #[arg(short, long, num_args = 1.., conflicts_with = "only", value_name = "FILES")]
     pub ignore: Option<Vec<String>>,
 
     /// Only process specific files
-    #[arg(short, long, num_args = 1.., conflicts_with = "ignore")]
+    #[arg(short, long, num_args = 1.., conflicts_with = "ignore", value_name = "FILES")]
     pub only: Option<Vec<String>>,
 }
 

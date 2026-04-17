@@ -30,6 +30,7 @@ pub fn image_command(command: Command) {
 
 fn filter_args(file_filter: &FileFilter) -> Value {
     let mut data = serde_json::Map::new();
+    data.insert("backup".to_string(), json!(file_filter.backup));
 
     if let Some(ignore_list) = &file_filter.ignore {
         data.insert(
