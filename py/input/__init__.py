@@ -1,2 +1,2 @@
-from .args import SubArgs, SysArgs
+from .args import SysArgs
 from .paths import process_path
