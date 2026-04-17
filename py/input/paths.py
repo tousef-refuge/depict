@@ -7,7 +7,8 @@ def process_path(func, sysargs):
     filter_init(sysargs)
     root = sysargs["path"]
     if os.path.isfile(root):
-        func(SubArgs(sysargs, root))
+        if is_valid_file(root) and not skip_file(root):
+            func(SubArgs(sysargs, root))
     elif os.path.isdir(root):
         _dir_walk(func, sysargs)
     else:
@@ -17,12 +18,11 @@ def _dir_walk(func, sysargs):
     root = sysargs["path"]
     for current_path, dirs, files in os.walk(root):
         for file in files:
-            if file.lower().endswith(".png"):
+            if is_valid_file(file):
                 full_path = os.path.join(current_path, file)
                 if skip_file(full_path):
                     continue
+                func(SubArgs(sysargs, full_path))
 
-                try:
-                    func(SubArgs(sysargs, full_path))
-                except Exception as e:
-                    print(f"Error processing {full_path}: {e}")
+def is_valid_file(path):
+    return path.lower().endswith(".png")
