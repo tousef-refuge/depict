@@ -4,6 +4,7 @@ from pathspec import PathSpec
 filter_type = None
 filter_list = None
 VALID_FILE_EXTS = (".png", ".jpeg", ".jpg")
+VALID_FILTER_TYPES = ("ignore", "only")
 
 def filter_init(sysargs):
     global filter_type
@@ -11,6 +12,8 @@ def filter_init(sysargs):
 
     filters = sysargs.filters
     for _type in filters:
+        if _type not in VALID_FILTER_TYPES:
+            continue
         filter_type = _type
         filter_list = PathSpec.from_lines("gitwildmatch", filters[_type])
         break
