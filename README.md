@@ -105,3 +105,6 @@ pip install -r requirements.txt
   (for example ```depict trim C:/ --only **/test_*.png``` will only target files that have
   the format test_\<name\>.png). Added two new image commands: depict invert and depict
   grayscale. Take a wild guess at what these do
+- (1.4.0) Added .jpg and .jpeg support. Added 3 new commands: depict backup to generate backups
+  of an image, depict restore to overwrite images with their backups, and depict cleanup to
+  delete backups. Added --backup flag to every image command to generate backups in-place
