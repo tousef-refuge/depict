@@ -5,6 +5,7 @@ from py import image_output
 import cv2
 import numpy as np
 import os
+import tempfile
 
 def process(func, sysargs, path):
     if skip_file(path, func):
@@ -31,8 +32,12 @@ def _video(func, sysargs, path):
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
+    # noinspection PyUnresolvedReferences
     fourcc = cv2.VideoWriter_fourcc(*"mp4v")
-    out = cv2.VideoWriter(path, fourcc, fps, (width, height))
+    dir_name = os.path.dirname(path)
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4", dir=dir_name) as tmp:
+        temp = tmp.name
+    out = cv2.VideoWriter(temp, fourcc, fps, (width, height))
 
     frame_number = 1
     while True:
@@ -49,6 +54,10 @@ def _video(func, sysargs, path):
             cv2.COLOR_RGB2BGR
         )
         out.write(frame)
+
+    cap.release()
+    out.release()
+    os.replace(temp, path)
 
 def _image(func, sysargs, path):
     img = Image.open(path).convert("RGBA")
