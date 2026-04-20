@@ -1,36 +1,10 @@
-from .filters import skip_file
-from colorama import Fore
-from pathlib import Path
 from PIL import Image
-from py import image_output
-
 import cv2
 import numpy as np
 import os
-import shutil
 import tempfile
 
 def process(func, sysargs, path):
-    if skip_file(path, func):
-        image_output("Skipped: ", path, Fore.RED)
-        return
-
-    if sysargs.get_arg("backup"):
-        p = Path(path)
-        backup = p.with_name(p.name + ".old")
-        shutil.copy(p, backup)
-
-    ext = os.path.splitext(path)[1][1:]
-
-    if ext == "mp4":
-        final_func = _video
-    elif ext == "gif":
-        final_func = _gif
-    else:
-        final_func = _image
-    final_func(func, sysargs, path)
-
-def _video(func, sysargs, path):
     cap = cv2.VideoCapture(path)
 
     # noinspection PyUnresolvedReferences
@@ -63,13 +37,3 @@ def _video(func, sysargs, path):
     cap.release()
     out.release()
     os.replace(temp, path)
-
-def _gif(func, sysargs, path):
-    pass
-
-def _image(func, sysargs, path):
-    img = Image.open(path).convert("RGBA")
-    result = func(sysargs, img, path)
-    if not path.lower().endswith(".png"):
-        result = result.convert("RGB")
-    result.save(path)
