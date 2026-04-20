@@ -28,16 +28,12 @@ def process(func, sysargs, path):
 def _video(func, sysargs, path):
     cap = cv2.VideoCapture(path)
 
-    fps = cap.get(cv2.CAP_PROP_FPS)
-    width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-    height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-
     # noinspection PyUnresolvedReferences
     fourcc = cv2.VideoWriter_fourcc(*"mp4v")
     dir_name = os.path.dirname(path)
     with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4", dir=dir_name) as tmp:
         temp = tmp.name
-    out = cv2.VideoWriter(temp, fourcc, fps, (width, height))
+    out = None
 
     frame_number = 1
     while True:
@@ -53,6 +49,10 @@ def _video(func, sysargs, path):
             np.array(img.convert("RGB")),
             cv2.COLOR_RGB2BGR
         )
+
+        if out is None:
+            fps = cap.get(cv2.CAP_PROP_FPS)
+            out = cv2.VideoWriter(temp, fourcc, fps, img.size)
         out.write(frame)
 
     cap.release()
