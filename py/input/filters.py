@@ -1,5 +1,6 @@
 from collections import defaultdict
 from pathspec import PathSpec
+from py import commands
 import os
 #ROOT = Path(sys.executable).parent if getattr(sys, "frozen", False) else Path.cwd()
 
@@ -8,7 +9,7 @@ filter_list = PathSpec.from_lines("gitwildmatch", {}) #mo more pyinspection hell
 
 VALID_FILTER_TYPES = ("ignore", "only")
 EXT_FUNC_DICT = defaultdict(list)
-ALL_FUNCS = ["alpha", "backup", "flip", "grayscale", "invert", "resize", "scale", "trim"]
+ALL_FUNCS = commands.__all__
 
 def filter_init(sysargs):
     global filter_type
@@ -22,10 +23,11 @@ def filter_init(sysargs):
         filter_list = PathSpec.from_lines("gitwildmatch", file_args[_type])
         break
 
-    valid_exts = "png", "jpg", "jpeg", "mp4"
+    valid_exts = "png", "jpg", "jpeg", "mp4", "gif"
     for ext in valid_exts:
         EXT_FUNC_DICT[ext].extend(ALL_FUNCS)
     EXT_FUNC_DICT["mp4"].remove("trim")
+    EXT_FUNC_DICT["gif"].remove("trim")
 
 def skip_file(path, func):
     #first step : input flags
