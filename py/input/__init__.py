@@ -1,2 +1,2 @@
 from .args import SysArgs
-from .paths import process_path
+from .dirwalk import process_path
