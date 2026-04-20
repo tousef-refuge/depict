@@ -1,6 +1,7 @@
 from .filters import filter_init, skip_file
+from colorama import Fore
 from PIL import Image
-from py import print_error
+from py import print_error, image_output
 import os
 
 def process_path(func, sysargs):
@@ -20,10 +21,9 @@ def _dir_walk(func, sysargs):
             full_path = os.path.join(current_path, file)
             _run_func(func, sysargs, full_path)
 
-# noinspection PyUnresolvedReferences
 def _run_func(func, sysargs, path):
     if skip_file(path, func):
-        print(f"Skip {path}")
+        image_output("Skipped: ", path, Fore.RED)
         return
 
     if sysargs.get_arg("backup"):
