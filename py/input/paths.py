@@ -1,4 +1,4 @@
-from .filters import filter_init, skip_file, VALID_FILE_EXTS
+from .filters import filter_init, skip_file
 from PIL import Image
 from py import print_error
 import os
@@ -22,7 +22,8 @@ def _dir_walk(func, sysargs):
 
 # noinspection PyUnresolvedReferences
 def _run_func(func, sysargs, path):
-    if skip_file(path) or not path.lower().endswith(VALID_FILE_EXTS):
+    if skip_file(path, func):
+        print(f"Skip {path}")
         return
 
     if sysargs.get_arg("backup"):

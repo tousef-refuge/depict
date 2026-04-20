@@ -1,10 +1,14 @@
+from collections import defaultdict
 from pathspec import PathSpec
+import os
 #ROOT = Path(sys.executable).parent if getattr(sys, "frozen", False) else Path.cwd()
 
 filter_type = None
-filter_list = None
-VALID_FILE_EXTS = (".png", ".jpeg", ".jpg")
+filter_list = PathSpec.from_lines("gitwildmatch", {}) #mo more pyinspection hell
+
 VALID_FILTER_TYPES = ("ignore", "only")
+EXT_FUNC_DICT = defaultdict(list)
+ALL_FUNCS = ["alpha", "backup", "flip", "grayscale", "invert", "resize", "scale", "trim"]
 
 def filter_init(sysargs):
     global filter_type
@@ -18,8 +22,13 @@ def filter_init(sysargs):
         filter_list = PathSpec.from_lines("gitwildmatch", file_args[_type])
         break
 
-# noinspection PyUnresolvedReferences
-def skip_file(path):
+    valid_exts = "png", "jpg", "jpeg", "mp4"
+    for ext in valid_exts:
+        EXT_FUNC_DICT[ext].extend(ALL_FUNCS)
+    EXT_FUNC_DICT["mp4"].remove("trim")
+
+def skip_file(path, func):
+    #first step : input flags
     global filter_type
     global filter_list
 
@@ -30,4 +39,6 @@ def skip_file(path):
         if filter_type == "only":
             return not filter_list.match_file(path)
 
-    return False
+    #second step : match extensions
+    ext = os.path.splitext(path)[1][1:]
+    return func.__name__ not in EXT_FUNC_DICT[ext]
