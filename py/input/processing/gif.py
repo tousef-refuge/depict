@@ -1,4 +1,5 @@
 from PIL import Image, ImageSequence
+from py import frame_num
 
 def process(func, sysargs, path):
     gif = Image.open(path)
@@ -7,7 +8,7 @@ def process(func, sysargs, path):
     frame_number = 1
     for frame in ImageSequence.Iterator(gif):
         img = frame.convert("RGBA")
-        img = func(sysargs, img, f"{path} (Frame {frame_number})")
+        img = func(sysargs, img, f"{path} {frame_num(frame_number)}")
         frame_number += 1
         frames.append(img.convert("RGB"))
 

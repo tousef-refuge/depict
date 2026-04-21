@@ -1,4 +1,5 @@
 from PIL import Image
+from py import frame_num
 import cv2
 import numpy as np
 import os
@@ -21,7 +22,7 @@ def process(func, sysargs, path):
             break
 
         img = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)).convert("RGBA")
-        img = func(sysargs, img, f"{path} (Frame {frame_number})")
+        img = func(sysargs, img, f"{path} {frame_num(frame_number)}")
         frame_number += 1
 
         frame = cv2.cvtColor(
