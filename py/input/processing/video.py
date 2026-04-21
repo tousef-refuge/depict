@@ -20,12 +20,12 @@ def process(func, sysargs, path):
         if not ret:
             break
 
-        img = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+        img = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)).convert("RGBA")
         img = func(sysargs, img, f"{path} (Frame {frame_number})")
         frame_number += 1
 
         frame = cv2.cvtColor(
-            np.array(img.convert("RGB")),
+            np.array(img),
             cv2.COLOR_RGB2BGR
         )
 
