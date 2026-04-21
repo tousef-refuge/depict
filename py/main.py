@@ -1,28 +1,19 @@
-from .commands import *
-from .input import *
+# noinspection PyUnusedImports
+from .commands import * #save the sustainability society GLOBALS()
+from .input import filters, process_path, SysArgs
+from py import commands
 import colorama
-
-COMMANDS = {
-    "trim" : trim,
-    "flip" : flip,
-    "scale" : scale,
-    "resize" : resize,
-    "alpha" : alpha,
-    "invert" : invert,
-    "grayscale" : grayscale,
-    "backup" : backup
-}
 
 def main():
     colorama.init()
     argv = SysArgs()
 
     name = argv["name"]
-    if name not in COMMANDS.keys():
-        name_error = f"Invalid function name ({argv["name"]})"
-        raise NameError(name_error)
+    if name not in commands.__all__:
+        raise NameError(f"Invalid function name ({argv["name"]})")
 
-    command = COMMANDS[name]
-    if name == "backup":
-        argv.file_args["backup"] = True
+    command = globals()[name]
+    argv.file_args["backup"] |= name == "backup"
+
+    filters.init(argv)
     process_path(command, argv)

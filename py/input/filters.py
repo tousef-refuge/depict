@@ -9,9 +9,8 @@ filter_list = PathSpec.from_lines("gitwildmatch", {}) #mo more pyinspection hell
 
 VALID_FILTER_TYPES = ("ignore", "only")
 EXT_FUNC_DICT = defaultdict(list)
-ALL_FUNCS = commands.__all__
 
-def filter_init(sysargs):
+def init(sysargs):
     global filter_type
     global filter_list
 
@@ -25,7 +24,7 @@ def filter_init(sysargs):
 
     valid_exts = "png", "jpg", "jpeg", "mp4", "gif"
     for ext in valid_exts:
-        EXT_FUNC_DICT[ext].extend(ALL_FUNCS)
+        EXT_FUNC_DICT[ext].extend(commands.__all__)
     EXT_FUNC_DICT["mp4"].remove("trim")
     EXT_FUNC_DICT["gif"].remove("trim")
 

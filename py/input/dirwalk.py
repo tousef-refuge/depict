@@ -1,10 +1,8 @@
-from .filters import filter_init
 from .processing import process
 from py import print_error
 import os
 
 def process_path(func, sysargs):
-    filter_init(sysargs)
     root = sysargs["path"]
     if os.path.isfile(root):
         process(func, sysargs, root)
