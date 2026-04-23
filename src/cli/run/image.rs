@@ -1,6 +1,7 @@
 use serde_json::{json, Value};
 use std::process::{Command as Cmd, Stdio};
-use crate::cli::commands::{Command, FileArgs};
+use crate::cli::args::FileArgs;
+use crate::cli::commands::Command;
 use crate::paths::{exe_dir, get_venv, project_root};
 
 pub fn image_command(command: Command) {
