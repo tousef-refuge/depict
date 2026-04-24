@@ -26,9 +26,9 @@ pub fn load_config() -> Config {
     serde_json::from_str(&data).unwrap_or_else(|_| { init_config(true); Config::default() })
 }
 
-pub fn _save_config(config: &Config) {
+pub fn save_config(config: Config) {
     let path = config_json();
-    let data = serde_json::to_string(config).unwrap();
+    let data = serde_json::to_string(&config).unwrap();
     fs::write(path, data).unwrap();
 }
 

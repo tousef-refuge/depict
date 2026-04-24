@@ -6,6 +6,7 @@ use crate::update::install::install_update;
 use crate::update::updater::run_updater;
 use crate::update::versions::{current_version, latest_version};
 use crate::config::display::show_settings;
+use crate::config::edit::edit_setting;
 
 pub fn system_command(command: Command) {
     match command {
@@ -39,7 +40,7 @@ pub fn system_command(command: Command) {
         Command::Config { config_args } => {
             if let Some(args) = config_args {
                 match args {
-                    ConfigArgs::Set { key : _k, value : _v } => {}
+                    ConfigArgs::Set { key, value } => { edit_setting(key, value); }
                     ConfigArgs::Show => { show_settings(); }
                 }
             } else { show_settings(); }
