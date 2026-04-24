@@ -1,12 +1,11 @@
 use colored::Colorize;
 use crate::cli::args::ConfigArgs;
 use crate::cli::commands::Command;
-use crate::config::json::load_config;
 use crate::github::is_release;
 use crate::update::install::install_update;
 use crate::update::updater::run_updater;
 use crate::update::versions::{current_version, latest_version};
-use serde_json::Value;
+use crate::config::display::show_settings;
 
 pub fn system_command(command: Command) {
     match command {
@@ -41,22 +40,11 @@ pub fn system_command(command: Command) {
             if let Some(args) = config_args {
                 match args {
                     ConfigArgs::Set { key : _k, value : _v } => {}
-                    ConfigArgs::Show => { display_config(); }
+                    ConfigArgs::Show => { show_settings(); }
                 }
-            } else { display_config(); }
+            } else { show_settings(); }
         }
 
         _ => unreachable!(),
-    }
-}
-
-fn display_config() {
-    println!("{}", "Configuration:".bold().underline());
-
-    let value = serde_json::to_value(load_config()).unwrap();
-    if let Value::Object(map) = value {
-        for (key, val) in map {
-            println!("  {} {}", format!("{:<11}", key).bold(), val);
-        }
     }
 }
