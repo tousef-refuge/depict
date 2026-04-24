@@ -4,7 +4,9 @@ use crate::config::json::{load_config, save_config};
 pub fn edit_setting(key: String, val: String) {
     let mut config = load_config();
     match key.as_str() {
-        "test" => edit(&mut config.test, &val, "test"),
+        "print_skip" => edit(&mut config.print_skip, &val, "print_skip"),
+        "print_frames" => edit(&mut config.print_frames, &val, "print_frames"),
+        "auto_backup" => edit(&mut config.auto_backup, &val, "auto_backup"),
         _ => println!("{} {}", "Invalid configuration key:".red(), key.red().bold()),
     }
     save_config(config);

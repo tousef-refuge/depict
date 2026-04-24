@@ -2,13 +2,17 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]
 pub struct Config {
-    pub test: bool,
+    pub print_skip: bool,
+    pub print_frames: bool,
+    pub auto_backup: bool,
 }
 
 impl Default for Config {
     fn default() -> Self {
         Config {
-            test: false
+            print_skip: true,
+            print_frames: true,
+            auto_backup: false,
         }
     }
 }
