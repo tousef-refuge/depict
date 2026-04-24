@@ -1,7 +1,7 @@
 use colored::Colorize;
 use crate::cli::args::ConfigArgs;
 use crate::cli::commands::Command;
-use crate::config::load_config;
+use crate::config::json::load_config;
 use crate::github::is_release;
 use crate::update::install::install_update;
 use crate::update::updater::run_updater;

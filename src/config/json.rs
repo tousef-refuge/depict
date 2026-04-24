@@ -1,22 +1,9 @@
-use crate::paths::project_root;
-use serde::{Serialize, Deserialize};
 use std::fs;
 use std::path::PathBuf;
+use crate::config::settings::Config;
+use crate::paths::project_root;
 
-#[derive(Serialize, Deserialize)]
-pub struct Config {
-    pub test: bool,
-}
-
-impl Default for Config {
-    fn default() -> Self {
-        Config {
-            test: false
-        }
-    }
-}
-
-pub fn init() {
+pub fn init_config() {
     let path = config_json();
     if !path.exists() {
         if let Some(parent) = path.parent() {
