@@ -14,7 +14,7 @@ use update::updater::updater_cleanup;
 
 #[allow(unreachable_code)]
 fn main() {
-    init_config();
+    init_config(false);
     let cli = Cli::parse();
     run_command(cli.command);
     notify_update();
