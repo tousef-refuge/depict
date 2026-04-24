@@ -1,4 +1,5 @@
-use clap::Args;
+use clap::{Args, Subcommand};
+use serde::Serialize;
 use crate::cli::commands::Command;
 
 #[derive(Args, Clone)]
@@ -29,5 +30,14 @@ impl Command {
             Command::Backup { file_args, .. } => file_args,
             _ => panic!("This command has no file filter"),
         }
+    }
+}
+
+#[derive(Subcommand, Serialize)]
+#[serde(tag = "name", rename_all = "lowercase")]
+pub enum ConfigArgs {
+    Set {
+        key: String,
+        value: String,
     }
 }

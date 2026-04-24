@@ -31,7 +31,10 @@ pub enum Command {
     },
 
     /// Configure the CLI
-    Config,
+    Config {
+        #[command(subcommand)]
+        config_args: Option<ConfigArgs>
+    },
 
     /// Deletes a backup
     Cleanup {

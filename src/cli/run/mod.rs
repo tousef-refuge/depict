@@ -9,8 +9,8 @@ use system::system_command;
 
 pub fn run_command(command: Command) {
     match command {
-        Command::Update
-        | Command::Config => system_command(command),
+        Command::Update { .. }
+        | Command::Config { .. } => system_command(command),
 
         Command::Restore { .. }
         | Command::Cleanup { .. } => backup_command(command),

@@ -34,7 +34,7 @@ pub fn system_command(command: Command) {
             run_updater(latest);
         }
 
-        Command::Config => {
+        Command::Config { config_args: cmd } => {
             println!("{}", "This command doesn't do anything...yet".red());
         }
 
