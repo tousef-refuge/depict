@@ -1,5 +1,7 @@
 use colored::Colorize;
+use crate::cli::args::ConfigArgs;
 use crate::cli::commands::Command;
+use crate::config::load_config;
 use crate::github::is_release;
 use crate::update::install::install_update;
 use crate::update::updater::run_updater;
@@ -34,10 +36,19 @@ pub fn system_command(command: Command) {
             run_updater(latest);
         }
 
-        Command::Config { config_args: cmd } => {
-            println!("{}", "This command doesn't do anything...yet".red());
+        Command::Config { config_args } => {
+            if let Some(args) = config_args {
+                match args {
+                    ConfigArgs::Set { key : _k, value : _v } => {}
+                    ConfigArgs::Show => { display_config(); }
+                }
+            } else { display_config(); }
         }
 
         _ => unreachable!(),
     }
+}
+
+fn display_config() {
+    println!(" ");
 }
