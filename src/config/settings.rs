@@ -13,8 +13,9 @@ pub enum Error { Invalid() }
 impl Config {
     pub fn info(key: &str) -> Result<String, Error> {
         let val = match key {
-            "test1" => "test1".to_string(),
-            "test2" => "test2".to_string(),
+            "print_skip" => "Print files that get skipped when processing".to_string(),
+            "print_frames" => "Print processing on each individual frame of a video/gif rather than the file as a whole".to_string(),
+            "auto_backup" => "When processing a file, automatically generate a backup".to_string(),
             _ => return Err(Error::Invalid()),
         };
         Ok(val)
