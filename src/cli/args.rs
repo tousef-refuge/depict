@@ -7,6 +7,10 @@ pub struct FileArgs {
     /// Generate a backup of every image processed
     #[arg(short, long)]
     pub backup: bool,
+    
+    /// Compress a file after processing
+    #[arg(short, long)]
+    pub compress: bool,
 
     /// Ignore specific files
     #[arg(short, long, num_args = 1.., conflicts_with = "only", value_name = "FILES")]

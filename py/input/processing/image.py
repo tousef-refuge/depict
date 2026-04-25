@@ -5,4 +5,4 @@ def process(func, sysargs, path):
     result = func(sysargs, img, path)
     if not path.lower().endswith(".png"):
         result = result.convert("RGB")
-    result.save(path)
+    result.save(path, optimize=sysargs.get_arg("compress"))
