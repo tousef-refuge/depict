@@ -108,3 +108,5 @@ pip install -r requirements.txt
 - (1.4.0) Added .jpg and .jpeg support. Added 3 new commands: depict backup to generate backups
   of an image, depict restore to overwrite images with their backups, and depict cleanup to
   delete backups. Added --backup flag to every image command to generate backups in-place
+- (2.0.0) Added video and gif support. Implemented configuration editing. Added one new 
+  command: depict compress to compress images and gifs (works best with .jpgs)
