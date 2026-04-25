@@ -1,10 +1,12 @@
 # noinspection PyUnusedImports
 from .commands import * #save the sustainability society GLOBALS()
+from .config import config_init
 from .input import filters, process_path, SysArgs
 from py import commands
 import colorama
 
 def main():
+    config_init()
     colorama.init()
     argv = SysArgs()
 
