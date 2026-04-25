@@ -44,7 +44,7 @@ pub fn notify_update() {
     let latest = latest_version();
     let current = current_version();
     if latest > current {
-        println!("A new release of depict is available ({} -> {})",
+        println!("A New release of depict is available ({} -> {})",
                  current.to_string().red(), latest.to_string().green());
         println!("{}{}",
                  "To update, run: ".yellow(),

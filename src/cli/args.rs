@@ -36,6 +36,11 @@ impl Command {
 #[derive(Subcommand, Serialize)]
 #[serde(tag = "name", rename_all = "lowercase")]
 pub enum ConfigArgs {
+    /// Give information about a key
+    Info {
+        key: String,
+    },
+    
     /// Change a given configuration
     Set {
         key: String,
