@@ -1,6 +1,7 @@
 from colorama import Fore
 from pathlib import Path
 
+from py import get_config
 from py.input import filters
 from py.printhelp import image_output
 
@@ -13,7 +14,8 @@ import shutil
 
 def process(func, sysargs, path):
     if filters.skip_file(path, func):
-        image_output("Skipped: ", path, Fore.RED)
+        if get_config("print_skip"):
+            image_output("Skipped: ", path, Fore.RED)
         return
 
     if sysargs.get_arg("backup"):

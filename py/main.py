@@ -1,6 +1,6 @@
 # noinspection PyUnusedImports
 from .commands import * #save the sustainability society GLOBALS()
-from .config import config_init
+from .config import config_init, get_config
 from .input import filters, process_path, SysArgs
 from py import commands
 import colorama
@@ -15,7 +15,7 @@ def main():
         raise NameError(f"Invalid function name ({argv["name"]})")
 
     command = globals()[name]
-    argv.file_args["backup"] |= name == "backup"
+    argv.file_args["backup"] |= (name == "backup") | get_config("auto_backup")
 
     filters.init(argv)
     process_path(command, argv)
