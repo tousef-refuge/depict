@@ -1,7 +1,8 @@
 use std::fs;
 use std::path::PathBuf;
 use crate::config::settings::Config;
-use crate::paths::project_root;
+use crate::github::is_release;
+use crate::paths::{exe_dir, project_root};
 
 pub fn init_config(force: bool) {
     let path = config_json();
@@ -33,5 +34,9 @@ pub fn save_config(config: Config) {
 }
 
 fn config_json() -> PathBuf {
-    project_root().join("config.json")
+    if is_release() {
+        exe_dir().join("config.json")
+    } else {
+        project_root().join("config.json")
+    }
 }
