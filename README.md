@@ -110,3 +110,4 @@ pip install -r requirements.txt
   delete backups. Added --backup flag to every image command to generate backups in-place
 - (2.0.0) Added video and gif support. Implemented configuration editing. Added one new 
   command: depict compress to compress images and gifs (works best with .jpgs)
+- (2.0.1) Removed depict compress for being too efficient. It might be reworked for later
