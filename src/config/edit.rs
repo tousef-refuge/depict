@@ -7,7 +7,6 @@ pub fn edit_setting(key: String, val: String) {
         "print_skip" => edit(&mut config.print_skip, &val, &key),
         "print_frames" => edit(&mut config.print_frames, &val, &key),
         "auto_backup" => edit(&mut config.auto_backup, &val, &key),
-        "auto_compress" => edit(&mut config.auto_compress, &val, &key),
         _ => println!("{} {}", "Invalid configuration key:".red(), key.red().bold()),
     }
     save_config(config);

@@ -36,12 +36,6 @@ pub enum Command {
         config_args: Option<ConfigArgs>
     },
 
-    /// Compresses an image
-    Compress {
-        /// Image or directory with images
-        path: String,
-    },
-
     /// Deletes a backup
     Cleanup {
         /// Backup or directory with backups
