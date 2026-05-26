@@ -20,7 +20,6 @@ def process(func, sysargs, path):
 
     frames[0].save(
         path,
-        optimize=sysargs.get_arg("compress"),
         save_all=True,
         append_images=frames[1:],
         loop=0,

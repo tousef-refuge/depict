@@ -16,7 +16,6 @@ def main():
 
     command = globals()[name]
     argv.file_args["backup"] |= (name == "backup") | get_config("auto_backup")
-    argv.file_args["compress"] |= (name == "compress") | get_config("auto_compress")
 
     filters.init(argv)
     process_path(command, argv)
