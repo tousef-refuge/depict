@@ -8,6 +8,7 @@ def image_output(action, path, color=Fore.BLUE):
 def print_error(message):
     print(Fore.RED + message)
     print(Fore.RESET, end=' ')
+    exit(0) #oops
 
 def frame_num(frame):
     return f"{Fore.GREEN + f"(Frame {frame})"}{Fore.RESET + ' '}"
