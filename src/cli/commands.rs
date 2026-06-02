@@ -97,6 +97,19 @@ pub enum Command {
         path: String,
     },
 
+    /// Rotates an image 90 degrees in a specific direction
+    Rotate {
+        /// Image or directory with images
+        path: String,
+
+        /// l for left, r for right
+        direction: char,
+
+        #[command(flatten)]
+        #[serde(skip)]
+        file_args: FileArgs,
+    },
+
     /// Scales a png with respect to the given scale
     Scale {
         /// Image or directory with images

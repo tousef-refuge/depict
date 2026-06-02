@@ -3,4 +3,4 @@ from .files import *
 from .orient import *
 from .size import *
 
-__all__ = ["trim", "flip", "scale", "resize", "alpha", "invert", "grayscale", "backup"]
+__all__ = ["trim", "flip", "scale", "resize", "alpha", "invert", "grayscale", "backup", "rotate"]

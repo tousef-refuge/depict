@@ -28,6 +28,7 @@ impl Command {
             Command::Scale { file_args, .. } => file_args,
             Command::Trim { file_args, .. } => file_args,
             Command::Backup { file_args, .. } => file_args,
+            Command::Rotate { file_args, .. } => file_args,
             _ => panic!("This command has no file filter"),
         }
     }
