@@ -17,6 +17,7 @@ pub struct FileArgs {
     pub only: Option<Vec<String>>,
 }
 
+//bro there HAS to be an easier way to do this
 impl Command {
     pub fn file_args(&self) -> &FileArgs {
         match self {
@@ -29,6 +30,9 @@ impl Command {
             Command::Trim { file_args, .. } => file_args,
             Command::Backup { file_args, .. } => file_args,
             Command::Rotate { file_args, .. } => file_args,
+            Command::Hue { file_args, .. } => file_args,
+            Command::Saturation { file_args, .. } => file_args,
+            Command::Value { file_args, .. } => file_args,
             _ => panic!("This command has no file filter"),
         }
     }

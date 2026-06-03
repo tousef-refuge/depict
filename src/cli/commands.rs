@@ -65,6 +65,19 @@ pub enum Command {
         file_args: FileArgs,
     },
 
+    /// Adjusts the hue of an image
+    Hue {
+        /// Image or directory with images
+        path: String,
+
+        /// New value (mod 256)
+        value: u8,
+
+        #[command(flatten)]
+        #[serde(skip)]
+        file_args: FileArgs,
+    },
+
     /// Invert the colors of an image
     Invert {
         /// Image or directory with images
@@ -110,6 +123,19 @@ pub enum Command {
         file_args: FileArgs,
     },
 
+    /// Adjusts the saturation of an image
+    Saturation {
+        /// Image or directory with images
+        path: String,
+
+        /// New value (mod 256)
+        value: u8,
+
+        #[command(flatten)]
+        #[serde(skip)]
+        file_args: FileArgs,
+    },
+
     /// Scales a png with respect to the given scale
     Scale {
         /// Image or directory with images
@@ -135,4 +161,17 @@ pub enum Command {
 
     /// Updates the CLI
     Update,
+
+    /// Adjusts the value of an image
+    Value {
+        /// Image or directory with images
+        path: String,
+
+        /// New value (mod 256)
+        value: u8,
+
+        #[command(flatten)]
+        #[serde(skip)]
+        file_args: FileArgs,
+    },
 }
