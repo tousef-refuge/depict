@@ -1,2 +1,10 @@
+from ._helper import set_hsv
+from py import image_output
+
 def value(subargs, img, path):
-    pass
+    img = img.copy()
+    val = subargs["value"]
+
+    adjusted = set_hsv(img, s=val)
+    image_output(f"Adjust value ({val}): ", path)
+    return adjusted
