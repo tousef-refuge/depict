@@ -1,4 +1,5 @@
 pub mod args;
+pub mod docs;
 
 use clap::Subcommand;
 use serde::Serialize;
