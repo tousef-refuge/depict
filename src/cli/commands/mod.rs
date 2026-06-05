@@ -1,6 +1,8 @@
+pub mod args;
+
 use clap::Subcommand;
 use serde::Serialize;
-use crate::cli::args::*;
+use args::*;
 
 //must remain in alphabetical order for -h to look nice
 //everything else is in chronological order cause i hate sorting
@@ -11,7 +13,7 @@ pub enum Command {
     Alpha {
         /// Image or directory with images
         path: String,
-        
+
         /// Opacity multiplier
         alpha: f64,
 
@@ -41,7 +43,7 @@ pub enum Command {
         /// Backup or directory with backups
         path: String,
     },
-    
+
     /// Flips an image vertical or horizontally
     Flip {
         /// Image or directory with images

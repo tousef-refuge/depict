@@ -1,5 +1,5 @@
 use colored::Colorize;
-use crate::cli::args::ConfigArgs;
+use crate::cli::commands::args::ConfigArgs;
 use crate::cli::commands::Command;
 use crate::github::is_release;
 use crate::update::install::install_update;
