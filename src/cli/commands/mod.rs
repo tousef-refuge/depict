@@ -1,9 +1,21 @@
 pub mod args;
-pub mod docs;
 
 use clap::Subcommand;
 use serde::Serialize;
 use args::*;
+
+pub const _CMD_TYPES: &[(&str, &[&str])] = &[
+    //backend
+    ("color", &["alpha", "grayscale", "invert"]),
+    ("files", &["backup"]),
+    ("hsv", &["hue", "saturation", "value"]),
+    ("orient", &["flip", "rotate"]),
+    ("size", &["resize", "scale", "trim"]),
+
+    //frontend
+    ("backup", &["restore", "cleanup"]),
+    ("system", &["config", "update"]),
+];
 
 //must remain in alphabetical order for -h to look nice
 //everything else is in chronological order cause i hate sorting
